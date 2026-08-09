@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enclosure concepts — Digital radio alarm</title>
+<style>
+  :root {
+    --room: #1B1D24; --panel: #24262F; --panel-line: #383A45;
+    --ink: #EDEAE3; --ink-muted: #9B9890; --glow: #E8A555;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--room); }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); }
+  .nav {
+    display: flex; gap: 1.25rem; max-width: 920px; margin: 0 auto; padding: 1.5rem 1.5rem 0;
+    font-size: 0.85rem;
+  }
+  .nav a { color: var(--ink-muted); text-decoration: none; }
+  .nav a[aria-current="page"] { color: var(--glow); font-weight: 600; }
+  .nav a:hover { color: var(--glow); }
+  .board { max-width: 920px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+  .eyebrow {
+    font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--glow);
+  }
+  h1 {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-size: 2rem; font-weight: 400; margin: 0.5rem 0 0.4rem; text-wrap: balance;
+  }
+  .subhead { color: var(--ink-muted); max-width: 58ch; margin: 0 0 2.5rem; font-size: 0.98rem; line-height: 1.6; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+  .concept { background: var(--panel); border: 0.5px solid var(--panel-line); border-radius: 14px; padding: 1.5rem 1.5rem 1.7rem; }
+  .concept svg { width: 100%; height: auto; display: block; margin-bottom: 1rem; }
+  .concept h2 {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-weight: 400; font-size: 1.3rem; margin: 0 0 0.5rem;
+  }
+  .concept p { margin: 0 0 0.9rem; color: var(--ink-muted); font-size: 0.94rem; line-height: 1.55; }
+  .spec {
+    font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+    font-size: 0.78rem; color: var(--glow); border-top: 0.5px solid var(--panel-line);
+    padding-top: 0.7rem; letter-spacing: 0.01em;
+  }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html">Overview</a>
+  <a href="parts-list.html">Parts list</a>
+  <a href="enclosure-concepts.html" aria-current="page">Enclosure concepts</a>
+</nav>
+<div class="board">
+  <div class="eyebrow">Enclosure concepts</div>
+  <h1>Four directions for the same internals</h1>
+  <p class="subhead">Same Pi, e-ink panel, speaker, and light module underneath — four different physical treatments. These are illustrated concept sketches, not renders; pick a direction or take pieces from each.</p>
+
+  <div class="grid">
+    <article class="concept">
+      <svg viewBox="0 0 240 300" role="img" aria-label="Pebble concept: a rounded block with a warm light channel along the top edge">
+        <defs>
+          <linearGradient id="glowPebble" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#E8A555" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#E8A555" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="120" cy="248" rx="92" ry="9" fill="#000000" opacity="0.3"/>
+        <ellipse cx="120" cy="118" rx="85" ry="34" fill="url(#glowPebble)"/>
+        <rect x="28" y="118" width="184" height="112" rx="44" fill="#E7E2D6"/>
+        <rect x="63" y="140" width="114" height="50" rx="6" fill="#22252A"/>
+        <rect x="75" y="178" width="90" height="5" rx="2.5" fill="#3A3E45"/>
+        <circle cx="78" cy="204" r="1.6" fill="#C7C0AC"/>
+        <circle cx="88" cy="204" r="1.6" fill="#C7C0AC"/>
+        <circle cx="98" cy="204" r="1.6" fill="#C7C0AC"/>
+        <circle cx="108" cy="204" r="1.6" fill="#C7C0AC"/>
+        <circle cx="118" cy="204" r="1.6" fill="#C7C0AC"/>
+        <circle cx="128" cy="204" r="1.6" fill="#C7C0AC"/>
+        <circle cx="138" cy="204" r="1.6" fill="#C7C0AC"/>
+        <circle cx="148" cy="204" r="1.6" fill="#C7C0AC"/>
+        <circle cx="158" cy="204" r="1.6" fill="#C7C0AC"/>
+        <circle cx="168" cy="204" r="1.6" fill="#C7C0AC"/>
+        <circle cx="200" cy="174" r="11" fill="#D8D2C0"/>
+        <line x1="200" y1="174" x2="200" y2="165" stroke="#8B8470" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <h2>Pebble</h2>
+      <p>One soft-edged block sized to fit in a hand. The light comes from a channel along the top edge instead of a separate fixture, so the screen and speaker share a single uninterrupted face.</p>
+      <div class="spec">matte plastic · ~110×70×45mm · encoder on the right edge</div>
+    </article>
+
+    <article class="concept">
+      <svg viewBox="0 0 240 300" role="img" aria-label="Dial concept: a small wooden cabinet with a hooded light over the screen and one large front knob">
+        <defs>
+          <linearGradient id="glowDial" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#E8A555" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#E8A555" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="120" cy="254" rx="98" ry="9" fill="#000000" opacity="0.3"/>
+        <rect x="18" y="130" width="204" height="100" rx="10" fill="#6B4A32"/>
+        <ellipse cx="83" cy="150" rx="55" ry="20" fill="url(#glowDial)"/>
+        <rect x="38" y="148" width="90" height="48" rx="4" fill="#22252A"/>
+        <rect x="34" y="126" width="98" height="10" rx="3" fill="#4A3320"/>
+        <circle cx="178" cy="180" r="28" fill="#C9CDD3"/>
+        <circle cx="178" cy="180" r="6" fill="#8D939B"/>
+        <line x1="178" y1="180" x2="178" y2="156" stroke="#5B6066" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="154" cy="214" r="1.8" fill="#8D6A46"/>
+        <circle cx="162" cy="214" r="1.8" fill="#8D6A46"/>
+        <circle cx="170" cy="214" r="1.8" fill="#8D6A46"/>
+        <circle cx="178" cy="214" r="1.8" fill="#8D6A46"/>
+        <circle cx="186" cy="214" r="1.8" fill="#8D6A46"/>
+        <circle cx="194" cy="214" r="1.8" fill="#8D6A46"/>
+        <circle cx="202" cy="214" r="1.8" fill="#8D6A46"/>
+      </svg>
+      <h2>Dial</h2>
+      <p>A small wooden cabinet with a real dial. The clip-light becomes a literal hood over the screen — the same idea as the old Kindle case, just built in instead of clipped on.</p>
+      <div class="spec">walnut + brushed aluminum · ~140×60×70mm · one front knob</div>
+    </article>
+
+    <article class="concept">
+      <svg viewBox="0 0 240 300" role="img" aria-label="Column concept: a tall narrow cylinder standing on a small base, light and screen stacked vertically">
+        <defs>
+          <linearGradient id="glowColumn" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#E8A555" stop-opacity="0.65"/>
+            <stop offset="100%" stop-color="#E8A555" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="120" cy="272" rx="55" ry="8" fill="#000000" opacity="0.3"/>
+        <ellipse cx="120" cy="262" rx="34" ry="9" fill="#C4C7BC"/>
+        <rect x="95" y="70" width="50" height="195" rx="25" fill="#D9DCD2"/>
+        <rect x="103" y="110" width="34" height="60" rx="6" fill="#22252A"/>
+        <rect x="108" y="158" width="24" height="4" rx="2" fill="#3A3E45"/>
+        <circle cx="120" cy="184" r="1.8" fill="#AEB2A5"/>
+        <circle cx="120" cy="192" r="1.8" fill="#AEB2A5"/>
+        <circle cx="120" cy="200" r="1.8" fill="#AEB2A5"/>
+        <circle cx="120" cy="208" r="1.8" fill="#AEB2A5"/>
+        <circle cx="120" cy="216" r="1.8" fill="#AEB2A5"/>
+        <circle cx="120" cy="224" r="1.8" fill="#AEB2A5"/>
+        <circle cx="120" cy="232" r="1.8" fill="#AEB2A5"/>
+        <rect x="93" y="68" width="54" height="10" rx="5" fill="#C4C7BC"/>
+        <rect x="100" y="80" width="40" height="6" rx="3" fill="url(#glowColumn)"/>
+        <line x1="120" y1="68" x2="120" y2="72" stroke="#7C8074" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <h2>Column</h2>
+      <p>Stands instead of lying flat, so it claims almost no nightstand space. Light, screen, and speaker stack vertically on a small turned base.</p>
+      <div class="spec">ceramic or printed cylinder · ~50×50×150mm · twist-cap encoder</div>
+    </article>
+
+    <article class="concept">
+      <svg viewBox="0 0 240 300" role="img" aria-label="Rig concept: an open acrylic frame with the electronics left visible, screen mounted at a slight angle">
+        <defs>
+          <linearGradient id="glowRig" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#E8A555" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#E8A555" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="120" cy="256" rx="95" ry="9" fill="#000000" opacity="0.28"/>
+        <rect x="30" y="90" width="180" height="150" rx="6" fill="#FFFFFF" fill-opacity="0.05" stroke="#8A8F98" stroke-width="1.5"/>
+        <circle cx="40" cy="100" r="3" fill="#9A9FA8"/>
+        <circle cx="200" cy="100" r="3" fill="#9A9FA8"/>
+        <circle cx="40" cy="230" r="3" fill="#9A9FA8"/>
+        <circle cx="200" cy="230" r="3" fill="#9A9FA8"/>
+        <rect x="45" y="78" width="150" height="8" rx="4" fill="url(#glowRig)"/>
+        <g transform="rotate(-6 95 140)">
+          <rect x="55" y="110" width="90" height="55" rx="5" fill="#22252A"/>
+          <rect x="66" y="148" width="68" height="5" rx="2.5" fill="#3A3E45"/>
+        </g>
+        <circle cx="175" cy="190" r="26" fill="#2B2E33" stroke="#4A4E55" stroke-width="1"/>
+        <circle cx="175" cy="190" r="17" fill="#3A3E45"/>
+        <circle cx="175" cy="190" r="7" fill="#54585F"/>
+        <rect x="85" y="240" width="70" height="26" rx="4" fill="#3A3D44" stroke="#5B5F66" stroke-width="1"/>
+        <circle cx="100" cy="253" r="7" fill="#C9CDD3"/>
+        <rect x="118" y="248" width="10" height="10" rx="2" fill="#8A8F98"/>
+        <rect x="134" y="248" width="10" height="10" rx="2" fill="#8A8F98"/>
+      </svg>
+      <h2>Rig</h2>
+      <p>Doesn't hide the build. Frame, driver, and mounting hardware stay visible on purpose, screen tilted slightly like it's been set down rather than built in.</p>
+      <div class="spec">acrylic standoffs + exposed driver · footprint varies · side-mounted controls</div>
+    </article>
+  </div>
+</div>
+</body>
+</html>

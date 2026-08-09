@@ -1,0 +1,13 @@
+[Unit]
+Description=Digital Radio Alarm Clock
+After=network-online.target sound.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/DigitalRadioAlarm/src/main.py
+WorkingDirectory=/home/pi/DigitalRadioAlarm
+Restart=on-failure
+User=pi
+
+[Install]
+WantedBy=multi-user.target

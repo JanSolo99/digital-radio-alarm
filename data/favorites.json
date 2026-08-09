@@ -1,0 +1,10 @@
+[
+  {
+    "id": "d01b8b32-2d71-46b1-ac82-573f7262283f",
+    "name": "Trust FM",
+    "description": "Canberra underground / community radio",
+    "stream_url": "https://trust-canberra-b3c69c68.radiocult.fm/stream",
+    "homepage": "https://trustfm.live/",
+    "source": "manual"
+  }
+]

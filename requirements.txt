@@ -1,0 +1,7 @@
+requests
+gpiozero
+flask
+
+# Not on PyPI - installed separately on the Pi:
+#   mpv               -> sudo apt install mpv   (stream playback, called via subprocess)
+#   e-ink vendor SDK   -> vendored from the panel manufacturer's repo once a display is picked

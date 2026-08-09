@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital radio alarm - stations</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 1.25rem 1rem 3rem;
+    background: #f4f5f6;
+    color: #1a1f24;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #14171a; color: #e7eaec; }
+  }
+  h1 { font-size: 1.3rem; margin: 0 0 1rem; }
+  h2 { font-size: 1rem; margin: 2rem 0 0.6rem; color: #5a6470; }
+  form { display: flex; gap: 0.5rem; }
+  input[type="text"] {
+    flex: 1;
+    font-size: 1rem;
+    padding: 0.6rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  button {
+    font-size: 0.95rem;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+  }
+  @media (prefers-color-scheme: dark) {
+    input[type="text"], button { background: #22262b; border-color: #3a4048; color: inherit; }
+  }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid #ddd;
+  }
+  @media (prefers-color-scheme: dark) { li { border-color: #2c3238; } }
+  .meta { font-size: 0.8rem; color: #6a7480; }
+  .name { font-weight: 600; }
+  .empty { color: #8a939c; font-size: 0.9rem; padding: 0.5rem 0; }
+  .status { font-size: 0.85rem; color: #b3401f; margin-top: 0.5rem; min-height: 1.2em; }
+</style>
+</head>
+<body>
+  <h1>Digital radio alarm - stations</h1>
+
+  <form id="search-form">
+    <input type="text" id="search-input" placeholder="Search Radio Browser, e.g. BBC" autocomplete="off">
+    <button type="submit">Search</button>
+  </form>
+  <div class="status" id="status"></div>
+
+  <h2>Results</h2>
+  <ul id="results"><li class="empty">Search above to find stations.</li></ul>
+
+  <h2>Favorites</h2>
+  <ul id="favorites"><li class="empty">Loading...</li></ul>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const resultsEl = document.getElementById('results');
+    const favoritesEl = document.getElementById('favorites');
+
+    function setStatus(message) {
+      statusEl.textContent = message || '';
+    }
+
+    function escapeHtml(value) {
+      const div = document.createElement('div');
+      div.textContent = value == null ? '' : String(value);
+      return div.innerHTML;
+    }
+
+    function stationRow(station, makeAction) {
+      const li = document.createElement('li');
+      const info = document.createElement('div');
+      const metaParts = [station.country, station.codec, station.bitrate ? station.bitrate + 'kbps' : '']
+        .filter(Boolean).join(' - ');
+      info.innerHTML = `<div class="name">${escapeHtml(station.name)}</div><div class="meta">${escapeHtml(metaParts)}</div>`;
+      li.appendChild(info);
+      li.appendChild(makeAction(station));
+      return li;
+    }
+
+    function makeButton(label, onClick) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = label;
+      button.addEventListener('click', onClick);
+      return button;
+    }
+
+    async function loadFavorites() {
+      const response = await fetch('/api/favorites');
+      const favorites = await response.json();
+      favoritesEl.innerHTML = '';
+      if (favorites.length === 0) {
+        favoritesEl.innerHTML = '<li class="empty">No favorites yet.</li>';
+        return;
+      }
+      for (const favorite of favorites) {
+        favoritesEl.appendChild(stationRow(favorite, (station) =>
+          makeButton('Remove', async () => {
+            await fetch(`/api/favorites/${encodeURIComponent(station.id)}`, { method: 'DELETE' });
+            loadFavorites();
+          })
+        ));
+      }
+    }
+
+    async function search(query) {
+      setStatus('Searching...');
+      resultsEl.innerHTML = '';
+      try {
+        const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+        if (data.error) {
+          setStatus(data.error);
+          return;
+        }
+        setStatus('');
+        if (data.length === 0) {
+          resultsEl.innerHTML = '<li class="empty">No stations found.</li>';
+          return;
+        }
+        for (const station of data) {
+          resultsEl.appendChild(stationRow(station, (s) =>
+            makeButton('Add', async () => {
+              await fetch('/api/favorites', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  id: s.id,
+                  name: s.name,
+                  stream_url: s.stream_url,
+                  homepage: s.homepage,
+                  source: 'radiobrowser',
+                }),
+              });
+              loadFavorites();
+            })
+          ));
+        }
+      } catch (error) {
+        setStatus('Search failed - check the Pi has network access.');
+      }
+    }
+
+    document.getElementById('search-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const query = document.getElementById('search-input').value.trim();
+      if (query) search(query);
+    });
+
+    loadFavorites();
+  </script>
+</body>
+</html>
