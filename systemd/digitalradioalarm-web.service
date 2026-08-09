@@ -6,7 +6,8 @@ Wants=network-online.target
 [Service]
 ExecStart=/usr/bin/python3 -m src.web.app
 WorkingDirectory=/home/pi/DigitalRadioAlarm
-Restart=on-failure
+Restart=always
+RestartSec=5
 User=pi
 
 [Install]

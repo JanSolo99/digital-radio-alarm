@@ -53,4 +53,6 @@ def search():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    # Port and hostname match the build plan (radioclock.local:8080). LAN-only -
+    # never port-forward this; there's no auth on it yet.
+    app.run(host="0.0.0.0", port=8080)

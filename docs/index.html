@@ -6,64 +6,52 @@
 <title>Digital radio alarm — project overview</title>
 <style>
   :root {
-    --paper: #EEF1F3;
-    --surface: #FFFFFF;
-    --ink: #16232F;
-    --ink-muted: #57697A;
-    --line: #D7DFE6;
-    --accent: #2B5D96;
-    --accent-soft: #E3ECF5;
-    --accent-ink: #17395C;
+    --paper: #EEF1F3; --surface: #FFFFFF; --ink: #16232F; --ink-muted: #57697A;
+    --line: #D7DFE6; --accent: #2B5D96; --accent-soft: #E3ECF5; --accent-ink: #17395C;
+    --done: #2E6B4F; --done-soft: #E4F0EA; --open: #A85A26; --open-soft: #F8EDE4;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --paper: #10161C; --surface: #161E26; --ink: #E7EDF2; --ink-muted: #93A4B3;
       --line: #29333F; --accent: #7CAEE0; --accent-soft: #1D2C3C; --accent-ink: #CFE3F5;
+      --done: #7FC0A0; --done-soft: #17281F; --open: #E0A46A; --open-soft: #2A2018;
     }
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; background: var(--paper); }
-  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); }
-  .nav {
-    display: flex; gap: 1.25rem; max-width: 760px; margin: 0 auto; padding: 1.5rem 1.5rem 0;
-    font-size: 0.85rem;
-  }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); line-height: 1.6; }
+  .nav { display: flex; flex-wrap: wrap; gap: 1.25rem; max-width: 800px; margin: 0 auto; padding: 1.5rem 1.5rem 0; font-size: 0.85rem; }
   .nav a { color: var(--ink-muted); text-decoration: none; }
   .nav a[aria-current="page"] { color: var(--accent); font-weight: 600; }
   .nav a:hover { color: var(--accent); }
-  .page { max-width: 760px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; line-height: 1.6; }
-  .eyebrow {
-    font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
-    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
-  }
+  .page { max-width: 800px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+  .eyebrow { font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
   h1 { font-size: 2rem; font-weight: 600; margin: 0.4rem 0 0.6rem; text-wrap: balance; }
-  .lede { color: var(--ink-muted); font-size: 1.05rem; max-width: 62ch; margin: 0 0 1rem; }
-  .status {
-    display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--ink-muted);
-    border: 0.5px solid var(--line); border-radius: 999px; padding: 0.3rem 0.8rem; margin-bottom: 2.5rem;
-  }
+  .lede { color: var(--ink-muted); font-size: 1.05rem; max-width: 62ch; margin: 0 0 1.2rem; }
+  .status { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--ink-muted); border: 0.5px solid var(--line); border-radius: 999px; padding: 0.3rem 0.8rem; margin-bottom: 2.5rem; }
   .status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-  h2 { font-size: 1.15rem; font-weight: 600; margin: 2.5rem 0 0.9rem; }
+  h2 { font-size: 1.15rem; font-weight: 600; margin: 2.75rem 0 0.9rem; }
   ul { padding-left: 1.2rem; margin: 0 0 1rem; }
   li { margin-bottom: 0.5rem; }
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem; }
-  .card {
-    display: block; background: var(--surface); border: 0.5px solid var(--line); border-radius: 12px;
-    padding: 1.1rem 1.25rem; text-decoration: none; color: var(--ink);
-  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .card { display: block; background: var(--surface); border: 0.5px solid var(--line); border-radius: 12px; padding: 1.1rem 1.25rem; text-decoration: none; color: var(--ink); }
   .card:hover { border-color: var(--accent); }
   .card .card-eyebrow { font-size: 0.75rem; color: var(--accent); margin-bottom: 0.3rem; }
   .card h3 { margin: 0 0 0.4rem; font-size: 1.05rem; font-weight: 600; }
   .card p { margin: 0; font-size: 0.88rem; color: var(--ink-muted); }
-  pre {
-    background: var(--surface); border: 0.5px solid var(--line); border-radius: 8px;
-    padding: 1rem 1.1rem; overflow-x: auto; font-size: 0.82rem; line-height: 1.6;
-    font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
-  }
-  .callout {
-    background: var(--accent-soft); border: 0.5px solid var(--line); border-radius: 10px;
-    padding: 1.1rem 1.3rem; margin-top: 1.5rem;
-  }
+  .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0 2rem; margin: 0; }
+  .spec-row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.55rem 0; border-top: 0.5px solid var(--line); font-size: 0.9rem; }
+  .spec-row dt { color: var(--ink-muted); }
+  .spec-row dd { margin: 0; text-align: right; font-weight: 500; }
+  .decision { display: flex; gap: 0.75rem; align-items: baseline; padding: 0.7rem 0; border-top: 0.5px solid var(--line); font-size: 0.93rem; }
+  .pill { flex: none; font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600; border-radius: 999px; padding: 0.15rem 0.6rem; }
+  .pill-done { background: var(--done-soft); color: var(--done); }
+  .pill-open { background: var(--open-soft); color: var(--open); }
+  .decision span:last-child { color: var(--ink-muted); }
+  .decision strong { color: var(--ink); font-weight: 500; }
+  pre { background: var(--surface); border: 0.5px solid var(--line); border-radius: 8px; padding: 1rem 1.1rem; overflow-x: auto; font-size: 0.82rem; line-height: 1.6; font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; }
+  code { font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; background: var(--surface); border: 0.5px solid var(--line); border-radius: 4px; padding: 0.1em 0.4em; font-size: 0.85em; }
+  .callout { background: var(--accent-soft); border: 0.5px solid var(--line); border-radius: 10px; padding: 1.1rem 1.3rem; margin-top: 1.5rem; }
   .callout h3 { margin: 0 0 0.6rem; font-size: 0.95rem; font-weight: 600; color: var(--accent-ink); }
   .callout ul { margin: 0; }
   .callout li:last-child { margin-bottom: 0; }
@@ -72,73 +60,89 @@
 <body>
 <nav class="nav">
   <a href="index.html" aria-current="page">Overview</a>
+  <a href="build-plan.html">Build plan</a>
   <a href="parts-list.html">Parts list</a>
   <a href="enclosure-concepts.html">Enclosure concepts</a>
 </nav>
 <div class="page">
   <div class="eyebrow">Project plan</div>
   <h1>Digital radio alarm</h1>
-  <p class="lede">A homemade bedside alarm clock built around internet radio streaming: e-ink clock/date display with a "now playing" bar, small speaker, top-down light for reading the display in the dark, and an alarm that fades a chosen station up to full volume instead of jumping straight there. Runs on a Raspberry Pi over WiFi.</p>
-  <div class="status">Early build — hardware not wired up yet, station management working locally</div>
+  <p class="lede">A bedside internet radio alarm clock in a retro wood cabinet. An e-ink display shows the time, date and what's playing, lit from above by a dimmable warm light. Alarms pair a time with a station and fade up from silence over a minute. Everything you'd do half-asleep is a physical knob or button — the phone stays in another room.</p>
+  <div class="status">Planning complete — hardware not yet ordered, station management working</div>
 
-  <h2>What it does</h2>
+  <h2>The one rule this design answers to</h2>
+  <p>No phone at the bedside. Every function you'd reach for in the dark — silencing an alarm, snoozing, turning on the light, changing station, adjusting volume — is a knob or a button on the device itself. The web page exists only for the occasional curating job you'd do from a couch, never as a dependency at 6am.</p>
+
+  <h2>Specification</h2>
+  <div class="spec-grid">
+    <dl class="spec-row"><dt>Enclosure</dt><dd>Mitred hardwood, ~145×95×70mm</dd></dl>
+    <dl class="spec-row"><dt>Brain</dt><dd>Raspberry Pi Zero 2 W</dd></dl>
+    <dl class="spec-row"><dt>Display</dt><dd>2.9" e-ink, 296×128</dd></dl>
+    <dl class="spec-row"><dt>Audio</dt><dd>MAX98357A I2S → 50mm driver</dd></dl>
+    <dl class="spec-row"><dt>Controls</dt><dd>Rotary encoder + 3 buttons</dd></dl>
+    <dl class="spec-row"><dt>Light</dt><dd>2700K strip, PWM dimmed</dd></dl>
+    <dl class="spec-row"><dt>Power</dt><dd>5V 3A USB, SELV only</dd></dl>
+    <dl class="spec-row"><dt>Estimated cost</dt><dd>$290 AUD</dd></dl>
+  </div>
+
+  <h2>Where the project stands</h2>
+  <div class="decision"><span class="pill pill-done">Built</span><span><strong>Station search and favourites.</strong> Searches the Radio Browser database from the Pi, one-click favourite, persists to disk. Tested against the live API.</span></div>
+  <div class="decision"><span class="pill pill-done">Built</span><span><strong>Alarm scheduling and storage.</strong> Times, repeat days, per-alarm volume, snooze. Pure logic, tested — including the awkward cases like a weekday alarm correctly skipping the weekend.</span></div>
+  <div class="decision"><span class="pill pill-done">Decided</span><span><strong>Enclosure direction.</strong> The retro wood cabinet, of the four concepts explored.</span></div>
+  <div class="decision"><span class="pill pill-done">Decided</span><span><strong>Physical control scheme.</strong> One detented encoder with push-select, plus menu/back, snooze and dismiss buttons.</span></div>
+  <div class="decision"><span class="pill pill-open">Next</span><span><strong>Order parts and breadboard.</strong> Nothing is bought yet. Every subsystem gets proven loose on the bench before any timber is cut.</span></div>
+  <div class="decision"><span class="pill pill-open">Next</span><span><strong>Display, audio, light and input code.</strong> All four wait on real hardware to write against.</span></div>
+
+  <h2>Design decisions worth knowing</h2>
   <ul>
-    <li>Shows the time and date on an e-ink display, plus a small "now playing" bar for the current station.</li>
-    <li>Sets an alarm for a specific time <em>and</em> a specific internet radio station.</li>
-    <li>When the alarm fires, that station starts playing and ramps up to full volume over roughly a minute rather than jumping straight there.</li>
-    <li>A top-down light (like the old clip-on Kindle case lights) illuminates the e-ink screen in the dark.</li>
-    <li>Search and favorite stations from a phone, from anywhere on the home network.</li>
+    <li><strong>No hosted backend.</strong> Station discovery uses the free, open Radio Browser database; the stations you actually use live in a file on the Pi. Nothing to host, nothing to pay for, nothing to keep running.</li>
+    <li><strong>Alarms fire entirely on-device.</strong> Time and station are stored locally, so nothing about waking up depends on a network round-trip.</li>
+    <li><strong>Station search runs on the Pi, not in the browser.</strong> Radio Browser requires DNS-based mirror discovery that browser JavaScript can't perform, so the Pi handles lookup and retry and serves its own page.</li>
+    <li><strong>A real-time clock module, despite the Pi not needing one.</strong> A Pi restores a stale time at boot and only corrects once WiFi returns. Acceptable for most projects; not for this one.</li>
+    <li><strong>Playback shells out to <code>mpv</code></strong> rather than using a Python audio library, which handles the messy variety of internet radio stream formats for free.</li>
   </ul>
 
-  <h2>Design decisions so far</h2>
-  <ul>
-    <li><strong>No hosted backend.</strong> Station discovery uses the free, open Radio Browser API; stations actually used are kept in a local favorites file on the Pi itself.</li>
-    <li><strong>Alarm logic runs entirely on-device</strong> — alarm time and chosen station are stored locally, no network round-trip needed to fire an alarm.</li>
-    <li><strong>Stream playback</strong> shells out to <code>mpv</code> rather than using a Python audio library directly.</li>
-    <li><strong>Station search runs server-side, on the Pi</strong> — Radio Browser's API requires DNS-based mirror discovery that browser JavaScript can't do, so the Pi does the lookup/retry and serves its own small local management page instead.</li>
-  </ul>
-
-  <h2>Still open</h2>
-  <ul>
-    <li>Physical input method — rotary encoder + buttons is the working assumption, not yet confirmed.</li>
-    <li>Exact e-ink panel model — needs to support partial refresh; affects enclosure dimensions.</li>
-  </ul>
-
-  <h2>Explore</h2>
+  <h2>Read next</h2>
   <div class="cards">
+    <a class="card" href="build-plan.html">
+      <div class="card-eyebrow">14 steps</div>
+      <h3>Build plan</h3>
+      <p>The full sequence from breadboard to burn-in, with acceptance criteria and four corrections flagged inline.</p>
+    </a>
     <a class="card" href="parts-list.html">
-      <div class="card-eyebrow">Build sheet</div>
+      <div class="card-eyebrow">29 items</div>
       <h3>Parts list</h3>
-      <p>Every component, grouped by subsystem, with the reasoning behind each pick.</p>
+      <p>Every component and tool, grouped by subsystem, with the gotchas worth knowing before ordering.</p>
     </a>
     <a class="card" href="enclosure-concepts.html">
       <div class="card-eyebrow">Concept sketches</div>
       <h3>Enclosure concepts</h3>
-      <p>Four physical directions for the same internals — Pebble, Dial, Column, and Rig.</p>
+      <p>The four physical directions considered, and which one the build went with.</p>
     </a>
   </div>
 
   <h2>Repo structure</h2>
   <pre>src/
   main.py          entry point, wires everything together
-  alarm/           alarm scheduling + persistence
-  audio/           mpv subprocess wrapper, volume ramp, now-playing metadata
-  display/         e-ink driver wrapper + UI layout
-  input/           rotary encoder / button handling
-  light/           PWM front-light control
-  stations/        Radio Browser client + local favorites
-  web/             local management page - search + favorite stations from your phone
+  alarm/           scheduling + storage        [built, tested]
+  stations/        Radio Browser + favorites   [built, tested]
+  web/             local management page       [built, partial]
+  audio/           mpv wrapper, volume ramp    [not started]
+  display/         e-ink driver + layout       [not started]
+  input/           encoder + button handling   [not started]
+  light/           PWM front-light control     [not started]
 data/
   favorites.json   saved stations
+  alarms.json      configured alarms
 systemd/
-  digitalradioalarm.service       runs main.py on boot
+  digitalradioalarm.service       runs the clock app on boot
   digitalradioalarm-web.service   runs the management page on boot</pre>
 
   <div class="callout">
-    <h3>Status detail</h3>
+    <h3>About this plan</h3>
     <ul>
-      <li>Working: station search + favorites (Radio Browser API, local web UI).</li>
-      <li>Not yet built: alarm scheduling, audio playback, e-ink display, physical input, light control — all pending the hardware decisions above.</li>
+      <li>The build sequence was generated with blueprinthome.app, then reviewed against the electronics and the code already written. Four corrections are flagged inline on the build plan — a GPIO conflict between the light and the amplifier, a missing real-time clock, an ambiguous LED strip voltage, and a station-management step that's already been solved better than specified.</li>
+      <li>The enclosure images are hand-drawn concept sketches, not renders or photographs of a finished object. Nothing here has been built yet.</li>
     </ul>
   </div>
 </div>

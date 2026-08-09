@@ -31,6 +31,13 @@
   .subhead { color: var(--ink-muted); max-width: 58ch; margin: 0 0 2.5rem; font-size: 0.98rem; line-height: 1.6; }
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
   .concept { background: var(--panel); border: 0.5px solid var(--panel-line); border-radius: 14px; padding: 1.5rem 1.5rem 1.7rem; }
+  .concept.chosen { border: 1px solid var(--glow); }
+  .badge {
+    display: inline-block; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase;
+    font-weight: 600; color: #2A1E12; background: var(--glow); border-radius: 999px;
+    padding: 0.2rem 0.7rem; margin-bottom: 0.8rem;
+  }
+  .concept.chosen .spec { color: var(--glow); }
   .concept svg { width: 100%; height: auto; display: block; margin-bottom: 1rem; }
   .concept h2 {
     font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
@@ -47,13 +54,14 @@
 <body>
 <nav class="nav">
   <a href="index.html">Overview</a>
+  <a href="build-plan.html">Build plan</a>
   <a href="parts-list.html">Parts list</a>
   <a href="enclosure-concepts.html" aria-current="page">Enclosure concepts</a>
 </nav>
 <div class="board">
   <div class="eyebrow">Enclosure concepts</div>
   <h1>Four directions for the same internals</h1>
-  <p class="subhead">Same Pi, e-ink panel, speaker, and light module underneath — four different physical treatments. These are illustrated concept sketches, not renders; pick a direction or take pieces from each.</p>
+  <p class="subhead">Same Pi, e-ink panel, speaker, and light module underneath — four different physical treatments. These are illustrated concept sketches, not renders. The build went with Dial: a mitred hardwood carcass with a 3D-printed bezel and light hood, at roughly 145×95×70mm.</p>
 
   <div class="grid">
     <article class="concept">
@@ -87,8 +95,8 @@
       <div class="spec">matte plastic · ~110×70×45mm · encoder on the right edge</div>
     </article>
 
-    <article class="concept">
-      <svg viewBox="0 0 240 300" role="img" aria-label="Dial concept: a small wooden cabinet with a hooded light over the screen and one large front knob">
+    <article class="concept chosen">
+      <svg viewBox="0 0 240 300" role="img" aria-label="Dial concept, the chosen direction: a small wooden cabinet with a hooded light over the screen and one large front knob">
         <defs>
           <linearGradient id="glowDial" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#E8A555" stop-opacity="0.6"/>
@@ -111,9 +119,10 @@
         <circle cx="194" cy="214" r="1.8" fill="#8D6A46"/>
         <circle cx="202" cy="214" r="1.8" fill="#8D6A46"/>
       </svg>
+      <div class="badge">Chosen direction</div>
       <h2>Dial</h2>
-      <p>A small wooden cabinet with a real dial. The clip-light becomes a literal hood over the screen — the same idea as the old Kindle case, just built in instead of clipped on.</p>
-      <div class="spec">walnut + brushed aluminum · ~140×60×70mm · one front knob</div>
+      <p>A small wooden cabinet with a real dial. The clip-light becomes a literal hood over the screen — the same idea as the old Kindle case, just built in instead of clipped on. Warm timber and a physical knob suit a thing you reach for half-asleep better than a cold slab does.</p>
+      <div class="spec">mitred hardwood + printed bezel · ~145×95×70mm · encoder + 3 buttons</div>
     </article>
 
     <article class="concept">

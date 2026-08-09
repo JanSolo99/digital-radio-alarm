@@ -6,69 +6,52 @@
 <title>Parts list — Digital radio alarm</title>
 <style>
   :root {
-    --paper: #EEF1F3;
-    --surface: #FFFFFF;
-    --ink: #16232F;
-    --ink-muted: #57697A;
-    --line: #D7DFE6;
-    --accent: #2B5D96;
-    --accent-soft: #E3ECF5;
-    --accent-ink: #17395C;
-    --copper: #A85A26;
+    --paper: #EEF1F3; --surface: #FFFFFF; --ink: #16232F; --ink-muted: #57697A;
+    --line: #D7DFE6; --accent: #2B5D96; --accent-soft: #E3ECF5; --accent-ink: #17395C;
+    --copper: #A85A26; --flag: #A85A26; --flag-soft: #F8EDE4; --flag-line: #E8CDB4;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --paper: #10161C; --surface: #161E26; --ink: #E7EDF2; --ink-muted: #93A4B3;
-      --line: #29333F; --accent: #7CAEE0; --accent-soft: #1D2C3C; --accent-ink: #CFE3F5; --copper: #D68A52;
+      --line: #29333F; --accent: #7CAEE0; --accent-soft: #1D2C3C; --accent-ink: #CFE3F5;
+      --copper: #D68A52; --flag: #E0A46A; --flag-soft: #2A2018; --flag-line: #4A3826;
     }
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; background: var(--paper); }
-  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); }
-  .nav {
-    display: flex; gap: 1.25rem; max-width: 760px; margin: 0 auto; padding: 1.5rem 1.5rem 0;
-    font-size: 0.85rem;
-  }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); line-height: 1.55; }
+  .nav { display: flex; flex-wrap: wrap; gap: 1.25rem; max-width: 800px; margin: 0 auto; padding: 1.5rem 1.5rem 0; font-size: 0.85rem; }
   .nav a { color: var(--ink-muted); text-decoration: none; }
   .nav a[aria-current="page"] { color: var(--accent); font-weight: 600; }
   .nav a:hover { color: var(--accent); }
-  .sheet {
-    max-width: 760px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; line-height: 1.55;
-  }
-  .eyebrow {
-    font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
-    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
-  }
+  .sheet { max-width: 800px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+  .eyebrow { font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
   h1 { font-size: 1.9rem; font-weight: 600; margin: 0.4rem 0 0.3rem; text-wrap: balance; }
-  .subhead { color: var(--ink-muted); font-size: 0.98rem; margin: 0 0 2.5rem; max-width: 60ch; }
+  .subhead { color: var(--ink-muted); font-size: 0.98rem; margin: 0 0 1.5rem; max-width: 62ch; }
+  .totals { display: flex; flex-wrap: wrap; gap: 2rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 1rem 0; margin-bottom: 2.5rem; }
+  .total-item .total-label { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); }
+  .total-item .total-value { font-size: 1.4rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .total-item .total-note { font-size: 0.8rem; color: var(--ink-muted); }
   .group { margin: 0 0 2.75rem; }
-  .group-head {
-    display: flex; align-items: baseline; gap: 0.6rem;
-    border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; margin-bottom: 0.9rem;
-  }
+  .group-head { display: flex; align-items: baseline; gap: 0.6rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; margin-bottom: 0.9rem; }
   .group-head .dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; flex: none; }
   .group-head h2 { font-size: 1.05rem; font-weight: 600; margin: 0; }
+  .section-head { margin: 3.5rem 0 1.5rem; }
+  .section-head h2 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0; }
+  .section-head p { margin: 0.35rem 0 0; font-size: 0.9rem; color: var(--ink-muted); max-width: 62ch; }
   .table-wrap { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-  th {
-    text-align: left; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase;
-    color: var(--ink-muted); font-weight: 500; padding: 0 0.75rem 0.5rem 0; white-space: nowrap;
-  }
+  th { text-align: left; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); font-weight: 500; padding: 0 0.75rem 0.5rem 0; white-space: nowrap; }
   td { padding: 0.6rem 0.75rem 0.6rem 0; border-top: 0.5px solid var(--line); vertical-align: top; }
-  td.part {
-    font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
-    font-size: 0.85rem; white-space: nowrap; color: var(--copper);
-  }
+  td.part { font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; font-size: 0.85rem; color: var(--copper); }
   td.note { color: var(--ink-muted); }
-  code {
-    font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
-    background: var(--surface); border: 0.5px solid var(--line); border-radius: 4px;
-    padding: 0.1em 0.4em; font-size: 0.85em; color: var(--ink);
-  }
-  .callout {
-    background: var(--accent-soft); border: 0.5px solid var(--line); border-radius: 10px;
-    padding: 1.1rem 1.3rem; margin-top: 3rem;
-  }
+  .qty { display: inline-block; font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; font-size: 0.75rem; color: var(--ink-muted); border: 0.5px solid var(--line); border-radius: 4px; padding: 0 0.35em; margin-left: 0.4em; }
+  code { font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; background: var(--surface); border: 0.5px solid var(--line); border-radius: 4px; padding: 0.1em 0.4em; font-size: 0.85em; color: var(--ink); }
+  .note-box { border-radius: 10px; padding: 1rem 1.2rem; margin-top: 1rem; font-size: 0.9rem; background: var(--flag-soft); border: 0.5px solid var(--flag-line); }
+  .note-box .note-label { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600; color: var(--flag); }
+  .note-box p { margin: 0 0 0.5rem; }
+  .note-box p:last-child { margin: 0; }
+  .callout { background: var(--accent-soft); border: 0.5px solid var(--line); border-radius: 10px; padding: 1.1rem 1.3rem; margin-top: 3rem; }
   .callout h3 { margin: 0 0 0.6rem; font-size: 0.95rem; font-weight: 600; color: var(--accent-ink); }
   .callout ul { margin: 0; padding-left: 1.1rem; }
   .callout li { margin-bottom: 0.4rem; }
@@ -78,23 +61,57 @@
 <body>
 <nav class="nav">
   <a href="index.html">Overview</a>
+  <a href="build-plan.html">Build plan</a>
   <a href="parts-list.html" aria-current="page">Parts list</a>
   <a href="enclosure-concepts.html">Enclosure concepts</a>
 </nav>
 <div class="sheet">
   <div class="eyebrow">Build sheet</div>
   <h1>Digital radio alarm — parts list</h1>
-  <p class="subhead">Concrete parts for the first build, grouped by subsystem in the order you'd wire them. No links or prices here — those move too fast to hardcode.</p>
+  <p class="subhead">Everything needed for the retro wood cabinet build, grouped by subsystem. No links or prices per item — those move too fast to hardcode.</p>
+
+  <div class="totals">
+    <div class="total-item">
+      <div class="total-label">Estimated cost</div>
+      <div class="total-value">$290</div>
+      <div class="total-note">AUD, excluding tools you own</div>
+    </div>
+    <div class="total-item">
+      <div class="total-label">Supplies</div>
+      <div class="total-value">19</div>
+      <div class="total-note">consumed by the build</div>
+    </div>
+    <div class="total-item">
+      <div class="total-label">Tools</div>
+      <div class="total-value">10</div>
+      <div class="total-note">borrowed or owned</div>
+    </div>
+    <div class="total-item">
+      <div class="total-label">Difficulty</div>
+      <div class="total-value">Advanced</div>
+      <div class="total-note">electronics + woodwork + code</div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Supplies</h2>
+    <p>Consumed by the build. Ordered roughly in the sequence you'll need them.</p>
+  </div>
 
   <section class="group">
-    <div class="group-head"><span class="dot"></span><h2>Compute</h2></div>
+    <div class="group-head"><span class="dot"></span><h2>Compute and timekeeping</h2></div>
     <div class="table-wrap">
       <table>
         <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
-        <tr><td class="part">Raspberry Pi Zero 2 W</td><td>Quad-core, built-in WiFi</td><td class="note">No analog audio jack — needs the I2S amp below. Alt: Pi 3A+ for a built-in headphone jack.</td></tr>
-        <tr><td class="part">microSD card</td><td>16–32GB, A1/A2 rated</td><td class="note">For Raspberry Pi OS Lite</td></tr>
-        <tr><td class="part">microSD reader</td><td>USB</td><td class="note">Only if your computer lacks a slot</td></tr>
+        <tr><td class="part">Raspberry Pi Zero 2 W</td><td>Quad-core, built-in WiFi</td><td class="note">A spare Pi 3A+ or 4 also works. No analog audio jack on the Zero — hence the I2S amp below.</td></tr>
+        <tr><td class="part">microSD card</td><td>32GB, A1 rated</td><td class="note">Raspberry Pi OS Lite 64-bit</td></tr>
+        <tr><td class="part">DS3231 RTC module</td><td>I2C, coin-cell backed</td><td class="note">Battery-backed clock so the time is right at boot even if WiFi isn't</td></tr>
+        <tr><td class="part">CR2032 coin cell</td><td>—</td><td class="note">Powers the RTC's backup</td></tr>
       </table>
+    </div>
+    <div class="note-box">
+      <div class="note-label">Added during review</div>
+      <p>The RTC and its battery weren't in the original generated plan. A Raspberry Pi has no battery-backed clock of its own — at boot it restores a stale time from disk and only corrects once WiFi and NTP come up. For a device whose whole job is waking you at a specific moment, that's a real failure mode, and the fix costs a few dollars on the I2C bus the build already enables.</p>
     </div>
   </section>
 
@@ -103,83 +120,105 @@
     <div class="table-wrap">
       <table>
         <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
-        <tr><td class="part">I2S DAC/amp breakout</td><td>MAX98357A-based (e.g. Adafruit I2S 3W Class D)</td><td class="note">Drives the speaker straight off I2S — no separate DAC needed</td></tr>
-        <tr><td class="part">Speaker</td><td>3–4Ω, 3W, ~40–45mm</td><td class="note">Matched to the amp above</td></tr>
+        <tr><td class="part">MAX98357A I2S amplifier</td><td>3.2W mono Class-D</td><td class="note">Digital audio straight off the Pi's I2S pins — no separate DAC</td></tr>
+        <tr><td class="part">Full-range speaker</td><td>50mm, 4Ω, 3W</td><td class="note">Paper or mylar cone, voice-friendly</td></tr>
+        <tr><td class="part">Speaker mesh grille</td><td>60mm brass or aluminium</td><td class="note">Decorative perforated disc for the retro opening</td></tr>
       </table>
     </div>
   </section>
 
   <section class="group">
-    <div class="group-head"><span class="dot"></span><h2>Display</h2></div>
+    <div class="group-head"><span class="dot"></span><h2>Display and light</h2></div>
     <div class="table-wrap">
       <table>
         <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
-        <tr><td class="part">E-ink HAT</td><td>2.13" or 2.9", SPI, partial-refresh capable</td><td class="note">Confirm partial refresh on the exact model before buying — not all support it</td></tr>
+        <tr><td class="part">2.9" e-ink display</td><td>296×128, SPI</td><td class="note">Waveshare 2.9in e-Paper or equivalent. Confirm partial refresh support before buying.</td></tr>
+        <tr><td class="part">Warm white LED strip</td><td>2700K, <strong>5V</strong>, ~100mm</td><td class="note">Top-down reading light in the printed hood</td></tr>
+        <tr><td class="part">N-channel MOSFET</td><td>Module, or 2N7000 + resistors</td><td class="note">PWM low-side switch so the Pi can dim the strip from GPIO12 or GPIO13</td></tr>
+      </table>
+    </div>
+    <div class="note-box">
+      <div class="note-label">Two gotchas worth reading before ordering</div>
+      <p><strong>The LED strip must be 5V.</strong> Listings often read "12V or 5V" — there is no 12V rail anywhere in this build. A 12V strip run from 5V glows dim and patchy rather than failing outright, which makes it a frustrating fault to chase once it's glued inside a hood.</p>
+      <p><strong>The dimmer cannot use GPIO18 or GPIO19.</strong> Those are the pins most online tutorials pick for PWM, and they're consumed here by I2S for the amplifier. Use GPIO12 or GPIO13 instead.</p>
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="group-head"><span class="dot"></span><h2>Controls</h2></div>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
+        <tr><td class="part">EC11 rotary encoder</td><td>Detented, 20-step, with push switch</td><td class="note">Main control — time, station, volume</td></tr>
+        <tr><td class="part">Tactile push buttons <span class="qty">×3</span></td><td>12mm, panel-mount, with caps</td><td class="note">Menu/back, snooze, dismiss</td></tr>
       </table>
     </div>
   </section>
 
   <section class="group">
-    <div class="group-head"><span class="dot"></span><h2>Timekeeping</h2></div>
+    <div class="group-head"><span class="dot"></span><h2>Power and wiring</h2></div>
     <div class="table-wrap">
       <table>
         <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
-        <tr><td class="part">RTC module</td><td>DS3231, I2C, coin-cell backed</td><td class="note">Keeps time through WiFi/NTP outages — matters more here, this thing's job is waking you up on time</td></tr>
-        <tr><td class="part">Coin cell</td><td>CR2032</td><td class="note">Powers the RTC module</td></tr>
+        <tr><td class="part">USB power supply</td><td>5V 3A, RCM marked</td><td class="note">Australian-plug pack with compliance mark, plus matching cable</td></tr>
+        <tr><td class="part">Hookup wire, headers, heatshrink</td><td>26AWG silicone, 2.54mm headers, JST</td><td class="note">Assorted, for the soldered harnesses</td></tr>
+        <tr><td class="part">Screw and standoff kit</td><td>M2 / M2.5 / M3, nylon</td><td class="note">Mounting the Pi, DAC and display</td></tr>
+        <tr><td class="part">Felt feet and cable grommet</td><td>—</td><td class="note">Non-slip base, plus strain relief where the USB cable enters</td></tr>
       </table>
     </div>
   </section>
 
   <section class="group">
-    <div class="group-head"><span class="dot"></span><h2>Input</h2></div>
+    <div class="group-head"><span class="dot"></span><h2>Cabinet</h2></div>
     <div class="table-wrap">
       <table>
         <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
-        <tr><td class="part">Rotary encoder</td><td>EC11, with push-button</td><td class="note">Sets alarm time, picks station</td></tr>
-        <tr><td class="part">Tactile buttons</td><td>×2–3</td><td class="note">Snooze / dismiss / back — exact count depends on the final UI</td></tr>
+        <tr><td class="part">Hardwood or timber</td><td>~1m of 90×12mm dressed</td><td class="note">Or a repurposed wooden box or drawer for the carcass</td></tr>
+        <tr><td class="part">3D printer filament</td><td>~300g matte black PLA or PETG</td><td class="note">Bezel, light hood, button plate, internal brackets</td></tr>
+        <tr><td class="part">Glue, abrasives, finish</td><td>PVA, 120/180/240 grit, Danish oil</td><td class="note">Mitre glue-up and the warm wood finish</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h2>Tools</h2>
+    <p>Not consumed by the build — borrow, hire, or substitute what you already own. The 3D printing can go to a print bureau.</p>
+  </div>
+
+  <section class="group">
+    <div class="group-head"><span class="dot"></span><h2>Electronics bench</h2></div>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Tool</th><th>Used for</th></tr>
+        <tr><td class="part">Soldering iron &amp; solder</td><td class="note">Temperature-controlled, ~350°C, fine conical tip — header pins, encoder, buttons, DAC, LED wiring</td></tr>
+        <tr><td class="part">Digital multimeter</td><td class="note">Checking the 5V and 3.3V rails, switch continuity, LED current</td></tr>
+        <tr><td class="part">Wire strippers and side cutters</td><td class="note">Stripping 24–26AWG hookup wire, trimming leads</td></tr>
+        <tr><td class="part">Precision screwdriver set</td><td class="note">PH0/PH1 and flat blades for M2/M3 screws, the encoder nut, bezel fixings</td></tr>
       </table>
     </div>
   </section>
 
   <section class="group">
-    <div class="group-head"><span class="dot"></span><h2>Light</h2></div>
+    <div class="group-head"><span class="dot"></span><h2>Workshop</h2></div>
     <div class="table-wrap">
       <table>
-        <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
-        <tr><td class="part">LEDs</td><td>Warm-white, 3mm/5mm or short strip</td><td class="note">Top-down, old-Kindle-case style</td></tr>
-        <tr><td class="part">Resistors</td><td>Matched to LED forward voltage/current</td><td class="note"></td></tr>
-        <tr><td class="part">Transistor/MOSFET</td><td>2N2222 or logic-level MOSFET (e.g. AO3400)</td><td class="note">Lets software PWM-dim the light</td></tr>
-      </table>
-    </div>
-  </section>
-
-  <section class="group">
-    <div class="group-head"><span class="dot"></span><h2>Power</h2></div>
-    <div class="table-wrap">
-      <table>
-        <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
-        <tr><td class="part">Power supply</td><td>Official Pi supply for the chosen model</td><td class="note">5V/2.5A micro-USB (Zero 2 W) or 5V/3A USB-C (Pi 4)</td></tr>
-      </table>
-    </div>
-  </section>
-
-  <section class="group">
-    <div class="group-head"><span class="dot"></span><h2>Enclosure &amp; assembly</h2></div>
-    <div class="table-wrap">
-      <table>
-        <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
-        <tr><td class="part">Enclosure</td><td>Design/print your own</td><td class="note">The "homemade, DIY-designed" part — not a buy-item</td></tr>
-        <tr><td class="part">Breadboard + jumper wires</td><td>—</td><td class="note">Prototyping before final assembly</td></tr>
-        <tr><td class="part">Perfboard, wire, solder</td><td>—</td><td class="note">Final soldered build</td></tr>
+        <tr><th>Tool</th><th>Used for</th></tr>
+        <tr><td class="part">Mitre saw or hand saw + mitre box</td><td class="note">45° mitres for the timber carcass sides</td></tr>
+        <tr><td class="part">Cordless drill + brad-point bits</td><td class="note">6mm and 7mm holes for encoder shaft and buttons, plus pilot holes</td></tr>
+        <tr><td class="part">Forstner bit or hole saw</td><td class="note">50–60mm speaker opening in the cabinet face</td></tr>
+        <tr><td class="part">Band or corner clamps</td><td class="note">Holding mitred joints square while the PVA cures</td></tr>
+        <tr><td class="part">3D printer or bureau access</td><td class="note">FDM, minimum 150×150mm bed — bezel, hood, brackets</td></tr>
+        <tr><td class="part">Safety glasses and P2 mask</td><td class="note">Eye protection for drilling and sawing, dust protection for sanding</td></tr>
       </table>
     </div>
   </section>
 
   <div class="callout">
-    <h3>Still open</h3>
+    <h3>Verify against what actually arrives</h3>
     <ul>
-      <li>Input method (encoder + buttons is the working assumption) — affects enclosure cutouts.</li>
-      <li>Exact e-ink panel model — affects enclosure dimensions and which vendor SDK gets vendored into <code>src/display/</code>.</li>
+      <li>Measure the display module's PCB and ribbon length yourself before finalising the bezel — module dimensions vary between vendors selling the "same" panel.</li>
+      <li>Check the encoder bushing and button diameters against the 6mm and 7mm drill sizes; panel-mount hardware varies more than listings suggest.</li>
+      <li>Confirm the e-ink panel you order supports partial refresh. Without it, the minute digits flash the whole screen every update.</li>
     </ul>
   </div>
 </div>

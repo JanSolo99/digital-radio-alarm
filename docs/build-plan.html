@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build plan — Digital radio alarm</title>
+<style>
+  :root {
+    --paper: #EEF1F3; --surface: #FFFFFF; --ink: #16232F; --ink-muted: #57697A;
+    --line: #D7DFE6; --accent: #2B5D96; --accent-soft: #E3ECF5; --accent-ink: #17395C;
+    --flag: #A85A26; --flag-soft: #F8EDE4; --flag-line: #E8CDB4;
+    --safe: #6B5A2E; --safe-soft: #F6F1E1; --safe-line: #E0D6B4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #10161C; --surface: #161E26; --ink: #E7EDF2; --ink-muted: #93A4B3;
+      --line: #29333F; --accent: #7CAEE0; --accent-soft: #1D2C3C; --accent-ink: #CFE3F5;
+      --flag: #E0A46A; --flag-soft: #2A2018; --flag-line: #4A3826;
+      --safe: #D3C68E; --safe-soft: #23211A; --safe-line: #443F2C;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); line-height: 1.6; }
+  .nav { display: flex; flex-wrap: wrap; gap: 1.25rem; max-width: 800px; margin: 0 auto; padding: 1.5rem 1.5rem 0; font-size: 0.85rem; }
+  .nav a { color: var(--ink-muted); text-decoration: none; }
+  .nav a[aria-current="page"] { color: var(--accent); font-weight: 600; }
+  .nav a:hover { color: var(--accent); }
+  .page { max-width: 800px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+  .eyebrow { font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  h1 { font-size: 2rem; font-weight: 600; margin: 0.4rem 0 0.6rem; text-wrap: balance; }
+  .lede { color: var(--ink-muted); font-size: 1.05rem; max-width: 62ch; margin: 0 0 1.5rem; }
+  .provenance { font-size: 0.86rem; color: var(--ink-muted); border-left: 2px solid var(--line); padding-left: 1rem; margin: 0 0 2.5rem; max-width: 62ch; }
+  .summary { background: var(--flag-soft); border: 0.5px solid var(--flag-line); border-radius: 12px; padding: 1.3rem 1.5rem; margin-bottom: 3rem; }
+  .summary h2 { margin: 0 0 0.3rem; font-size: 1.05rem; font-weight: 600; color: var(--flag); }
+  .summary > p { margin: 0 0 0.9rem; font-size: 0.92rem; color: var(--ink-muted); }
+  .summary ol { margin: 0; padding-left: 1.2rem; font-size: 0.93rem; }
+  .summary li { margin-bottom: 0.5rem; }
+  .summary li:last-child { margin-bottom: 0; }
+  .summary a { color: var(--flag); }
+  .stage { margin: 3rem 0 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--line); }
+  .stage h2 { margin: 0; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  .stage p { margin: 0.35rem 0 0; font-size: 0.9rem; color: var(--ink-muted); }
+  .step { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: 1rem; margin-bottom: 2.5rem; }
+  .step-num { font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; font-size: 0.95rem; color: var(--ink-muted); padding-top: 0.15rem; font-variant-numeric: tabular-nums; }
+  .step h3 { margin: 0 0 0.5rem; font-size: 1.1rem; font-weight: 600; }
+  .step > div > p { margin: 0 0 1rem; font-size: 0.95rem; }
+  .check { background: var(--surface); border: 0.5px solid var(--line); border-radius: 10px; padding: 0.9rem 1.1rem; }
+  .check-label { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 0.5rem; }
+  .check ul { margin: 0; padding-left: 1.1rem; font-size: 0.9rem; }
+  .check li { margin-bottom: 0.35rem; }
+  .check li:last-child { margin-bottom: 0; }
+  .note { border-radius: 10px; padding: 0.9rem 1.1rem; margin-top: 0.9rem; font-size: 0.9rem; }
+  .note-label { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600; }
+  .note p { margin: 0 0 0.5rem; }
+  .note p:last-child { margin-bottom: 0; }
+  .note ul { margin: 0; padding-left: 1.1rem; }
+  .note li { margin-bottom: 0.3rem; }
+  .note li:last-child { margin-bottom: 0; }
+  .safety { background: var(--safe-soft); border: 0.5px solid var(--safe-line); }
+  .safety .note-label { color: var(--safe); }
+  .flag { background: var(--flag-soft); border: 0.5px solid var(--flag-line); }
+  .flag .note-label { color: var(--flag); }
+  code { font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; background: var(--surface); border: 0.5px solid var(--line); border-radius: 4px; padding: 0.1em 0.4em; font-size: 0.85em; }
+  .flag code, .safety code { background: transparent; border-color: currentColor; opacity: 0.9; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html">Overview</a>
+  <a href="build-plan.html" aria-current="page">Build plan</a>
+  <a href="parts-list.html">Parts list</a>
+  <a href="enclosure-concepts.html">Enclosure concepts</a>
+</nav>
+<div class="page">
+  <div class="eyebrow">Build plan</div>
+  <h1>From bench to bedside, in fourteen steps</h1>
+  <p class="lede">The full build sequence: prove the electronics on a breadboard, write the software against known-good hardware, then commit to timber. Every step carries the acceptance criteria that say it's actually finished.</p>
+  <p class="provenance">Generated with blueprinthome.app on 9 August 2026, then reviewed against the electronics and the code already in this repo. Four corrections are flagged inline where the original plan would have caused a problem — they're summarised below.</p>
+
+  <div class="summary">
+    <h2>Review notes — read before ordering parts</h2>
+    <p>Four things the original plan got wrong or left out. Each is explained in full at the step it affects.</p>
+    <ol>
+      <li><strong>The LED dimmer and the audio amp are fighting over the same pins.</strong> Hardware PWM and I2S both want GPIO18/19. The light has to move to GPIO12 or GPIO13. <a href="#step-3">See step 3</a>.</li>
+      <li><strong>There's no real-time clock in the parts list.</strong> A Pi has no battery-backed clock — if the router is down at boot, the alarm doesn't know what time it is. <a href="#step-2">See step 2</a>.</li>
+      <li><strong>The LED strip must be the 5V kind, not 12V.</strong> There's no 12V rail anywhere in this build. <a href="#step-3">See step 3</a>.</li>
+      <li><strong>Station discovery is already solved and better than the plan assumes.</strong> No need to paste stream URLs by hand. <a href="#step-6">See step 6</a>.</li>
+    </ol>
+  </div>
+
+  <div class="stage">
+    <h2>Stage one — plan and prepare</h2>
+    <p>Nothing is cut or soldered yet. Decisions here set every dimension downstream.</p>
+  </div>
+
+  <div class="step" id="step-1">
+    <div class="step-num">01</div>
+    <div>
+      <h3>Finalise layout and internal dimensions</h3>
+      <p>Sketch the cabinet 1:1 on paper or in CAD. Target roughly 145mm wide × 95mm tall × 70mm deep. Front face: the 2.9-inch e-ink display in landscape, centred; speaker behind a 60mm grille on the right or in the side panel; encoder and three buttons along the bottom rail or top deck. Confirm which way the display's ribbon cable exits and how much depth the Pi needs stacked behind it. Note where the USB cable enters at the rear.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>Actual display module PCB and ribbon length measured, not assumed</li>
+          <li>Internal depth clears Pi + DAC + wiring (minimum 45mm)</li>
+          <li>Control positions marked for comfortable one-handed use in the dark</li>
+          <li>Speaker firing direction decided — front grille or side panel</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-2">
+    <div class="step-num">02</div>
+    <div>
+      <h3>Flash and configure the Raspberry Pi</h3>
+      <p>Image the microSD card with Raspberry Pi OS Lite 64-bit using Raspberry Pi Imager, presetting the hostname (<code>radioclock.local</code>), WiFi credentials, your timezone, and SSH. Boot the Pi Zero 2 W, update packages, then install <code>python3-pip</code>, <code>python3-venv</code>, <code>mpv</code>, <code>libmpv-dev</code>, <code>git</code> and the spidev tools. Enable SPI and I2C via <code>raspi-config</code>.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>Timezone set to your state so daylight saving is handled automatically</li>
+          <li>SSH access over WiFi confirmed from your computer</li>
+          <li>SPI and I2C interfaces enabled, Pi rebooted</li>
+          <li><code>apt update &amp;&amp; apt full-upgrade</code> completed</li>
+          <li>DS3231 RTC detected on I2C and system clock reading from it</li>
+        </ul>
+      </div>
+      <div class="note flag">
+        <div class="note-label">Review note — add the RTC back</div>
+        <p>The original plan enables I2C but never says what's on it, and lists no real-time clock among the parts. Meanwhile it expects time to "sync via NTP and survive reboot" — which a Pi cannot do unaided. There is no battery-backed clock on a Pi Zero 2 W. On boot it restores a plausible-looking but wrong time from disk and only corrects itself once WiFi and NTP come up.</p>
+        <p>For most Pi projects that's harmless. For the one device whose entire job is waking you at a specific moment, it means a router reboot overnight can leave you with a confidently displayed wrong time. Add the DS3231 module and CR2032 from the parts list — about the cost of a coffee, on the I2C bus this step already enables.</p>
+      </div>
+      <div class="note safety">
+        <div class="note-label">Safety</div>
+        <p>Power the Pi only from the RCM-marked 5V supply. Never improvise mains wiring.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage">
+    <h2>Stage two — prove the electronics</h2>
+    <p>Every subsystem works loose on the bench before anything is committed to timber.</p>
+  </div>
+
+  <div class="step" id="step-3">
+    <div class="step-num">03</div>
+    <div>
+      <h3>Breadboard the electronics and prove each subsystem</h3>
+      <p>Before any woodwork, wire everything loosely with hookup wire and headers. Connect the e-ink module to SPI0 (MOSI, SCLK, CS, DC, RST, BUSY); the MAX98357A to I2S — BCLK on GPIO18, LRCLK on GPIO19, DIN on GPIO21 — with the speaker on its output; the encoder and buttons to spare GPIOs with internal pull-ups; and the LED strip through the MOSFET module on a hardware-PWM pin. Solder headers and verify the rails with the multimeter.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>Display test pattern renders correctly</li>
+          <li>Test stream plays cleanly through the speaker with no hum</li>
+          <li>Encoder counts both directions without skipping; buttons debounce</li>
+          <li>LED strip dims smoothly 0–100% via PWM with no flicker at low levels</li>
+          <li>5V rail measured under load stays above 4.8V</li>
+        </ul>
+      </div>
+      <div class="note flag">
+        <div class="note-label">Review note — pin conflict, and the LED strip voltage</div>
+        <p><strong>The light and the amplifier want the same pins.</strong> The Pi exposes hardware PWM on four pins: GPIO12 and GPIO18 (PWM0), GPIO13 and GPIO19 (PWM1). This step assigns GPIO18 and GPIO19 to I2S for the amplifier, which consumes half of them — including GPIO18, the pin nearly every "dim an LED from a Pi" tutorial online tells you to use. Follow those tutorials here and the audio breaks, or the light does.</p>
+        <p>Put the LED strip on <strong>GPIO12 or GPIO13</strong> instead. Software PWM on any spare pin is the fallback, but it jitters visibly at the low brightness this light spends most of its life at, which is exactly where you don't want flicker.</p>
+        <p><strong>Buy the 5V LED strip.</strong> The parts list says "12V or 5V" — it must be 5V. There is no 12V rail anywhere in this build, and a 12V strip run from 5V glows dimly and unevenly rather than failing outright, which makes it an annoying fault to diagnose after it's glued into a hood.</p>
+      </div>
+      <div class="note safety">
+        <div class="note-label">Safety</div>
+        <ul>
+          <li>Disconnect power before rewiring — a shorted 5V rail can destroy the Pi.</li>
+          <li>Solder in a ventilated area and wear safety glasses when trimming leads.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage">
+    <h2>Stage three — write the software</h2>
+    <p>Against hardware you've already proven, so a bug is a bug and not a loose wire.</p>
+  </div>
+
+  <div class="step" id="step-4">
+    <div class="step-num">04</div>
+    <div>
+      <h3>Write the core clock and display application</h3>
+      <p>Create a Python venv and build the main app: a scheduler loop that renders time, date and a now-playing bar to the e-ink display using Pillow. Refresh the minute digits with partial updates and do a full refresh hourly to clear ghosting. Large condensed font for the time, smaller for the date, and a bottom bar for station name plus scrolling stream metadata.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>Partial refresh completes in under a second, no visible ghosting after 60 cycles</li>
+          <li>Time syncs via NTP and survives reboot</li>
+          <li>Now-playing bar truncates or scrolls long track titles</li>
+          <li>Full refresh scheduled hourly and on wake</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-5">
+    <div class="step-num">05</div>
+    <div>
+      <h3>Add streaming playback with fade-in alarm logic</h3>
+      <p>Wrap mpv with python-mpv for stream playback. Station URLs live in a JSON file. Each alarm holds a time, days, station and target volume; on trigger the stream starts muted and ramps to target over 60 seconds on a smooth curve. Include a fallback that plays a local WAV tone if the stream fails, so you are never left unwoken.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>Fade-in reaches target volume in ~60s with no audible steps</li>
+          <li>Snooze adds 9 minutes and re-fades; dismiss stops playback</li>
+          <li>Offline or dead-URL fallback tone triggers correctly</li>
+          <li>Buffering pre-roll starts 10 seconds before alarm time</li>
+        </ul>
+      </div>
+      <div class="note flag">
+        <div class="note-label">Review note — the two best ideas in this plan</div>
+        <p>The <strong>fallback tone</strong> and the <strong>10-second buffering pre-roll</strong> are the difference between a gadget and an alarm clock you can actually trust. A stream that 404s at 6:58am, or one that spends the first eight seconds buffering in silence, is a failed alarm. Build both from the start rather than discovering the need the hard way.</p>
+        <p>The per-alarm target volume has already been added to the alarm records in <code>src/alarm/storage.py</code>, so a weekday wake-up can be louder than a weekend one.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-6">
+    <div class="step-num">06</div>
+    <div>
+      <h3>Build the Flask companion web page</h3>
+      <p>Host a lightweight Flask app on the Pi at port 8080 for managing stations, alarms, light brightness and volume limits. Serve a mobile-friendly single page: add, edit, delete and reorder stations, and test-play one. Expose LED brightness as a slider writing the PWM duty cycle. Bind to the LAN only, no port forwarding.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>Page reachable at <code>http://radioclock.local:8080</code> from phone and laptop</li>
+          <li>Station list persists across reboot</li>
+          <li>Brightness slider changes the light live</li>
+          <li>LAN-only binding confirmed, authentication enabled</li>
+        </ul>
+      </div>
+      <div class="note flag">
+        <div class="note-label">Review note — partly built already, and better than specified</div>
+        <p>This step exists in the repo and works today. The plan assumes you add stations by pasting a name and a stream URL by hand; instead the page searches the <a href="https://www.radio-browser.info">Radio Browser</a> database of tens of thousands of stations and favourites them in one click. Finding a stream URL by hand is genuinely tedious, so this is worth keeping.</p>
+        <p>Still outstanding on this step: the alarm and brightness controls, and authentication. The app currently binds to all interfaces with no password — fine behind a home router, but it does mean anyone already on your WiFi can retune your alarm clock. Worth a token before this is finished.</p>
+      </div>
+      <div class="note safety">
+        <div class="note-label">Safety</div>
+        <p>Do not expose this page to the internet. Keep it on the local network with authentication enabled.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-7">
+    <div class="step-num">07</div>
+    <div>
+      <h3>Map the physical controls to the interface</h3>
+      <p>Define the input model. On the home screen, rotating adjusts volume; press-and-hold the encoder to enter the menu; rotate to pick a station and press to play. The menu/back button exits. Snooze and dismiss act on a ringing alarm, and double as light-toggle and light-dim-cycle when idle. Software debounce throughout, with a 600ms long-press threshold.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>Every function reachable without the web page</li>
+          <li>Idle press of snooze toggles the reading light</li>
+          <li>No false triggers over a 30-minute idle test</li>
+          <li>Menu times out back to the clock after 15 seconds</li>
+        </ul>
+      </div>
+      <div class="note flag">
+        <div class="note-label">Review note — this is the step that delivers the actual goal</div>
+        <p>The whole point of the project is not needing a phone at the bedside, and this step is where that's won or lost. "Every function reachable without the web page" is the requirement — the checklist item to hold the build to.</p>
+        <p>Worth dwelling on the station picker specifically: choosing a station means scrolling a list of names on a 296×128 e-ink panel that redraws slowly. It needs designing, not bolting on. Consider capping the on-device list to a handful of favourites, and leaving the full searchable library to the web page.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage">
+    <h2>Stage four — fabricate the cabinet</h2>
+    <p>Only now, with the electronics proven and their real dimensions known.</p>
+  </div>
+
+  <div class="step" id="step-8">
+    <div class="step-num">08</div>
+    <div>
+      <h3>Design and print the bezel, light hood and brackets</h3>
+      <p>Model a front bezel in matte black PETG with a window sized to the display's active area, a shallow lip to hold the panel, and a forward-projecting hood along the top edge housing the LED strip and aiming it down across the e-ink face. Also print a Pi tray, DAC bracket, speaker ring and a button/encoder mounting plate. Print at 0.16mm layers.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>Display test-fits the bezel window with no active area obscured</li>
+          <li>Hood angle avoids glare into your eyes when seated in bed</li>
+          <li>Bracket screw holes match the M2.5 Pi mounting pattern</li>
+          <li>Cable channel printed from the hood back into the cabinet</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-9">
+    <div class="step-num">09</div>
+    <div>
+      <h3>Cut and assemble the timber cabinet</h3>
+      <p>Cut four sides from hardwood with 45° mitres, or repurpose a small wooden box trimmed to size. Cut the speaker opening with the Forstner bit and drill the encoder and button holes. Add a rear grommet hole for the power cable. Glue up with PVA and clamps, checking for square.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>Control holes drilled before glue-up, while the stock is still flat</li>
+          <li>Diagonals equal after clamping — the box is square</li>
+          <li>Rear panel removable with four screws for servicing</li>
+        </ul>
+      </div>
+      <div class="note safety">
+        <div class="note-label">Safety</div>
+        <ul>
+          <li>Eye protection and a P2 mask for cutting and sanding; clamp workpieces before drilling.</li>
+          <li>Back up drill holes with scrap timber to prevent tear-out.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-10">
+    <div class="step-num">10</div>
+    <div>
+      <h3>Sand and finish the wood</h3>
+      <p>Sand progressively through 120, 180 and 240 grit, easing all edges for a soft retro profile. Wipe off dust, then apply two or three thin coats of Danish oil or wax, sanding lightly between coats. Let it cure fully before installing any electronics, so solvent vapours don't fog the display.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>Edges rounded and consistent to the touch</li>
+          <li>Coats applied thin and wiped back after 15 minutes</li>
+          <li>Cabinet cured at least 48 hours in a ventilated space</li>
+        </ul>
+      </div>
+      <div class="note safety">
+        <div class="note-label">Safety — the one on this page most worth reading twice</div>
+        <p>Oil-soaked rags can self-heat and catch fire on their own when bunched up. Lay them out flat outdoors to dry before disposal. This is a well-documented cause of house fires, not a theoretical hazard.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage">
+    <h2>Stage five — assemble and commission</h2>
+    <p>Bring the proven electronics and the finished cabinet together, then earn your trust in it.</p>
+  </div>
+
+  <div class="step" id="step-11">
+    <div class="step-num">11</div>
+    <div>
+      <h3>Mount components and dress the wiring</h3>
+      <p>Screw the printed trays into the cabinet. Fit the speaker behind the mesh grille with a thin foam gasket, seat the display in the bezel, and install the encoder and buttons from inside. Convert the breadboard wiring to soldered, heatshrunk harnesses, route them clear of the speaker, and fit the cable grommet.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>All harnesses labelled and long enough to open the case fully</li>
+          <li>Speaker gasket seals, so the cabinet doesn't buzz</li>
+          <li>Strain relief on the USB cable at the grommet</li>
+          <li>No wire pinched when the rear panel closes</li>
+        </ul>
+      </div>
+      <div class="note safety">
+        <div class="note-label">Safety</div>
+        <p>Power off and unplug while soldering or reseating any connector.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-12">
+    <div class="step-num">12</div>
+    <div>
+      <h3>Install the top-down warm light</h3>
+      <p>Cut the warm white LED strip to length, solder leads, and stick it inside the printed hood facing down at the display. Route the wires through the hood channel to the MOSFET dimmer. Confirm smooth dimming from a barely-visible night level to full reading brightness.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>No hot spots or visible individual LEDs on the display face</li>
+          <li>Minimum brightness usable in a fully dark room</li>
+          <li>Auto-off timer implemented — roughly 30 seconds</li>
+          <li>Strip current within the 5V supply budget</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-13">
+    <div class="step-num">13</div>
+    <div>
+      <h3>Make it boot-proof and run as a service</h3>
+      <p>Create systemd units for the clock app and the Flask server with <code>Restart=always</code> and <code>After=network-online.target</code>. Add a watchdog that restarts mpv if the stream stalls. Move logging to RAM to protect the SD card, and script a config backup you can copy off the device.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>Survives five consecutive hard power cycles</li>
+          <li>Stream stall auto-recovers within 15 seconds</li>
+          <li>Alarm still fires correctly after a reboot at 3am</li>
+          <li>Config backup exported to your computer</li>
+        </ul>
+      </div>
+      <div class="note flag">
+        <div class="note-label">Review note — the unglamorous step that decides whether you keep using it</div>
+        <p>Two details here are easy to skip and expensive to skip. <strong>Logging to RAM</strong> matters because a device that runs 24/7 will otherwise write itself through an SD card's endurance in a year or two, and the failure looks like mysterious corruption rather than an obvious dead card. <strong>"Alarm still fires after a 3am reboot"</strong> is the single best test on this page — it catches the class of bug where alarm state lives only in memory and quietly evaporates.</p>
+        <p>The two systemd units are already in the repo under <code>systemd/</code>, with <code>Restart=on-failure</code>. Bump both to <code>Restart=always</code> per this step.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" id="step-14">
+    <div class="step-num">14</div>
+    <div>
+      <h3>Test, calibrate and burn in</h3>
+      <p>Run a week of real use. Verify alarm accuracy against a phone, tune the fade curve so the first 15 seconds are genuinely gentle, set a sensible maximum volume, and check e-ink contrast under the light at night. Confirm the case stays cool after hours of playback, and add felt feet.</p>
+      <div class="check">
+        <div class="check-label">Done when</div>
+        <ul>
+          <li>Seven consecutive alarms fired on time</li>
+          <li>Case surface comfortable to touch after 4 hours of streaming</li>
+          <li>Fade curve tuned and maximum volume limited</li>
+          <li>Felt feet fitted and the cabinet sits flat</li>
+        </ul>
+      </div>
+      <div class="note safety">
+        <div class="note-label">Safety and compliance</div>
+        <ul>
+          <li>Keep the plug pack out from under bedding so it can ventilate.</li>
+          <li>If anything smells hot, or the case becomes uncomfortably warm, unplug and inspect the wiring.</li>
+          <li>In Australia, use only an RCM-marked SELV plug pack. Building or modifying mains-side wiring is licensed electrical work.</li>
+          <li>All internal wiring stays low-voltage 5V. Never bring 230V inside the enclosure.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
