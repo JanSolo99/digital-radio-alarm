@@ -139,10 +139,14 @@
     <div class="table-wrap">
       <table>
         <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
-        <tr><td class="part">2.9" e-ink display</td><td>296×128, SPI</td><td class="note">Waveshare 2.9in e-Paper or equivalent. Confirm partial refresh support before buying.</td></tr>
+        <tr><td class="part">1.54" e-ink display</td><td>200×200 square, SPI</td><td class="note">Waveshare 1.54in e-Paper or equivalent. Confirm partial refresh support before buying — not every variant has it.</td></tr>
         <tr><td class="part">Warm white LED strip</td><td>2700K, <strong>5V</strong>, ~100mm</td><td class="note">Top-down reading light in the printed hood</td></tr>
         <tr><td class="part">N-channel MOSFET</td><td>Module, or 2N7000 + resistors</td><td class="note">PWM low-side switch so the Pi can dim the strip from GPIO12 or GPIO13</td></tr>
       </table>
+    </div>
+    <div class="note-box">
+      <div class="note-label">Check the display is legible from bed before ordering</div>
+      <p>The square panel's active area is only about 27.6mm across, which caps the time digits at roughly 14mm tall. That's comfortable at normal bedside distance and marginal beyond about a metre and a half. Mark 14mm on a ruler, put it on the nightstand, and look at it from where you actually sleep. If it fails that test, the 2.9-inch landscape panel is the fallback — bigger digits, but a shape that fits the baffle less neatly.</p>
     </div>
     <div class="note-box">
       <div class="note-label">Two gotchas worth reading before ordering</div>

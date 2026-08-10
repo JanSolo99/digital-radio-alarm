@@ -98,7 +98,7 @@
     <div class="step-num">01</div>
     <div>
       <h3>Finalise layout and internal dimensions</h3>
-      <p>Sketch the cabinet 1:1 on paper or in CAD. Target 180mm wide × 120mm tall × 100mm deep externally, which lands around 1.1 litres inside once 12mm walls are subtracted. Front face: the 3" driver behind its grille on one side, the 2.9-inch e-ink display in landscape alongside it, encoder and three buttons along the bottom rail. Confirm which way the display's ribbon cable exits and how much depth the Pi needs stacked behind it. Note where the USB cable enters at the rear, and where the bass port will vent.</p>
+      <p>Sketch the cabinet 1:1 on paper or in CAD. Target 180mm wide × 120mm tall × 100mm deep externally, which lands around 1.1 litres inside once 12mm walls are subtracted. Front face: the 3" driver behind its grille on one side, the 1.54-inch square e-ink display alongside it, encoder and three buttons along the bottom rail. Confirm which way the display's ribbon cable exits and how much depth the Pi needs stacked behind it. Note where the USB cable enters at the rear, and where the bass port will vent.</p>
       <div class="check">
         <div class="check-label">Done when</div>
         <ul>
@@ -189,15 +189,21 @@
     <div class="step-num">04</div>
     <div>
       <h3>Write the core clock and display application</h3>
-      <p>Create a Python venv and build the main app: a scheduler loop that renders time, date and a now-playing bar to the e-ink display using Pillow. Refresh the minute digits with partial updates and do a full refresh hourly to clear ghosting. Large condensed font for the time, smaller for the date, and a bottom bar for station name plus scrolling stream metadata.</p>
+      <p>Create a Python venv and build the main app: a scheduler loop that renders the clock face to the 200×200 panel using Pillow. The time fills most of the square, the numbered date sits beneath it, and a small mark shows whether an alarm is armed. Refresh the minute digits with partial updates and do a full refresh hourly to clear ghosting. The station name appears only while you're interacting, then the face returns to the clock.</p>
       <div class="check">
         <div class="check-label">Done when</div>
         <ul>
+          <li>Time readable from where you actually sleep, without squinting</li>
+          <li>Armed-alarm state visible at a glance, without pressing anything</li>
           <li>Partial refresh completes in under a second, no visible ghosting after 60 cycles</li>
           <li>Time syncs via NTP and survives reboot</li>
-          <li>Now-playing bar truncates or scrolls long track titles</li>
           <li>Full refresh scheduled hourly and on wake</li>
         </ul>
+      </div>
+      <div class="note flag">
+        <div class="note-label">Review note — the armed-alarm indicator is not optional</div>
+        <p>"Is my alarm actually set?" is the question that otherwise sends you back to your phone at bedtime, which defeats the point of the whole build. On a square face there's room for a small mark near the date — a dot, or the alarm time in small type. It costs almost nothing to render and it is the difference between trusting the thing and double-checking it.</p>
+        <p>The square panel also drops the persistent now-playing bar the earlier layout had. Little is lost: e-ink refreshes too slowly for a scrolling ticker to read well anyway, and the same constraint favours showing one station at a time while turning the encoder over rendering a scrolling list.</p>
       </div>
     </div>
   </div>
@@ -281,11 +287,12 @@
     <div class="step-num">08</div>
     <div>
       <h3>Design and print the bezel, light hood and brackets</h3>
-      <p>Model a front bezel in matte black PETG with a window sized to the display's active area, a shallow lip to hold the panel, and a forward-projecting hood along the top edge housing the LED strip and aiming it down across the e-ink face. Also print a Pi tray, DAC bracket, speaker ring, bass port tube and a button/encoder mounting plate. Print at 0.16mm layers.</p>
+      <p>Model a front bezel in matte black PETG with a square window sized to the display's ~27.6mm active area, a shallow lip to hold the panel, and a forward-projecting hood along the top edge housing the LED strip and aiming it down across the e-ink face. Recess the window behind a visible surround so it reads as a dial window rather than a screen — on a wooden radio face that detail does more for the look than the panel choice does. Also print a Pi tray, DAC bracket, speaker ring, bass port tube and a button/encoder mounting plate. Print at 0.16mm layers.</p>
       <div class="check">
         <div class="check-label">Done when</div>
         <ul>
           <li>Display test-fits the bezel window with no active area obscured</li>
+          <li>Window surround reads as part of the cabinet, not as a device bolted onto it</li>
           <li>Hood angle avoids glare into your eyes when seated in bed</li>
           <li>Bracket screw holes match the M2.5 Pi mounting pattern</li>
           <li>Cable channel printed from the hood back into the cabinet</li>

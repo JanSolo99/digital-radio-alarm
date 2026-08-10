@@ -25,7 +25,7 @@ built and tested; display, audio, light and input code wait on real hardware.
 |---|---|
 | Enclosure | Mitred hardwood, 180×120×100mm, printed bezel and light hood |
 | Brain | Raspberry Pi Zero 2 W |
-| Display | 2.9" e-ink, 296×128, SPI, partial refresh |
+| Display | 1.54" e-ink, 200×200 square, SPI, partial refresh |
 | Audio | MAX98357A I2S amp into a 3" 4Ω full-range driver, ported cabinet |
 | Controls | EC11 rotary encoder with push-select + 3 tactile buttons |
 | Light | 2700K 5V strip, PWM dimmed via MOSFET on GPIO12 or GPIO13 |
