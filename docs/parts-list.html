@@ -68,17 +68,17 @@
 <div class="sheet">
   <div class="eyebrow">Build sheet</div>
   <h1>Digital radio alarm — parts list</h1>
-  <p class="subhead">Everything needed for the retro wood cabinet build, grouped by subsystem. No links or prices per item — those move too fast to hardcode.</p>
+  <p class="subhead">Everything needed for the 180×120×100mm wood cabinet build, grouped by subsystem. No links or prices per item — those move too fast to hardcode.</p>
 
   <div class="totals">
     <div class="total-item">
       <div class="total-label">Estimated cost</div>
-      <div class="total-value">$290</div>
-      <div class="total-note">AUD, excluding tools you own</div>
+      <div class="total-value">~$320</div>
+      <div class="total-note">AUD, revised for the larger driver</div>
     </div>
     <div class="total-item">
       <div class="total-label">Supplies</div>
-      <div class="total-value">19</div>
+      <div class="total-value">22</div>
       <div class="total-note">consumed by the build</div>
     </div>
     <div class="total-item">
@@ -121,9 +121,16 @@
       <table>
         <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
         <tr><td class="part">MAX98357A I2S amplifier</td><td>3.2W mono Class-D</td><td class="note">Digital audio straight off the Pi's I2S pins — no separate DAC</td></tr>
-        <tr><td class="part">Full-range speaker</td><td>50mm, 4Ω, 3W</td><td class="note">Paper or mylar cone, voice-friendly</td></tr>
-        <tr><td class="part">Speaker mesh grille</td><td>60mm brass or aluminium</td><td class="note">Decorative perforated disc for the retro opening</td></tr>
+        <tr><td class="part">Full-range speaker</td><td>3" (76mm), 4Ω, 5–10W</td><td class="note">Paper or mylar cone. Check the frame's outer diameter and mounting depth against the baffle before cutting.</td></tr>
+        <tr><td class="part">Speaker mesh grille</td><td>85–90mm brass or aluminium</td><td class="note">Perforated disc, sized to cover the cutout and the driver's mounting flange</td></tr>
+        <tr><td class="part">Acoustic wadding</td><td>Polyester fill, a handful</td><td class="note">Lightly lining the cabinet walls kills internal reflections. Cheap, and audible.</td></tr>
+        <tr><td class="part">Bass port tube</td><td>3D printed</td><td class="note">No purchase — printed from the filament already listed, tuned once the box is built</td></tr>
       </table>
+    </div>
+    <div class="note-box">
+      <div class="note-label">Why this grew</div>
+      <p>The original spec had a 50mm driver in a one-litre box. Small-speaker output is mostly a function of cone area and enclosure volume, and that combination was short on both — it would have sounded like a small radio rather than a good one. The 3" driver in a ported ~1.1-litre cabinet is roughly half the internal volume of a Tivoli Model One, which is a real compromise, but it is the difference between thin and pleasant.</p>
+      <p>The amplifier stays at 3.2W. That's well below the driver's rating and nowhere near a Tivoli's 6W, but into an efficient full-range driver it is comfortably loud for a bedroom — and this is a device with a maximum volume cap anyway.</p>
     </div>
   </section>
 
@@ -173,7 +180,8 @@
     <div class="table-wrap">
       <table>
         <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
-        <tr><td class="part">Hardwood or timber</td><td>~1m of 90×12mm dressed</td><td class="note">Or a repurposed wooden box or drawer for the carcass</td></tr>
+        <tr><td class="part">Hardwood or timber</td><td>~1.2m of 100×12mm dressed</td><td class="note">Carcass sides. Stock width sets the cabinet depth. A repurposed box or drawer works if it's close to 180×120×100mm.</td></tr>
+        <tr><td class="part">Baffle and rear panel</td><td>Offcuts, or 6mm ply</td><td class="note">Front baffle carries the driver; rear panel comes off with four screws for servicing</td></tr>
         <tr><td class="part">3D printer filament</td><td>~300g matte black PLA or PETG</td><td class="note">Bezel, light hood, button plate, internal brackets</td></tr>
         <tr><td class="part">Glue, abrasives, finish</td><td>PVA, 120/180/240 grit, Danish oil</td><td class="note">Mitre glue-up and the warm wood finish</td></tr>
       </table>
@@ -205,7 +213,7 @@
         <tr><th>Tool</th><th>Used for</th></tr>
         <tr><td class="part">Mitre saw or hand saw + mitre box</td><td class="note">45° mitres for the timber carcass sides</td></tr>
         <tr><td class="part">Cordless drill + brad-point bits</td><td class="note">6mm and 7mm holes for encoder shaft and buttons, plus pilot holes</td></tr>
-        <tr><td class="part">Forstner bit or hole saw</td><td class="note">50–60mm speaker opening in the cabinet face</td></tr>
+        <tr><td class="part">Hole saw</td><td class="note">~68mm cutout for the 3" driver. A hole saw rather than a Forstner bit — Forstners get expensive above about 50mm.</td></tr>
         <tr><td class="part">Band or corner clamps</td><td class="note">Holding mitred joints square while the PVA cures</td></tr>
         <tr><td class="part">3D printer or bureau access</td><td class="note">FDM, minimum 150×150mm bed — bezel, hood, brackets</td></tr>
         <tr><td class="part">Safety glasses and P2 mask</td><td class="note">Eye protection for drilling and sawing, dust protection for sanding</td></tr>
@@ -216,6 +224,7 @@
   <div class="callout">
     <h3>Verify against what actually arrives</h3>
     <ul>
+      <li>Measure the driver's frame diameter and mounting depth before cutting the baffle. Cabinet height was set from this — a 3" driver's frame is around 80mm, and the internal height needs real clearance around it, not a millimetre.</li>
       <li>Measure the display module's PCB and ribbon length yourself before finalising the bezel — module dimensions vary between vendors selling the "same" panel.</li>
       <li>Check the encoder bushing and button diameters against the 6mm and 7mm drill sizes; panel-mount hardware varies more than listings suggest.</li>
       <li>Confirm the e-ink panel you order supports partial refresh. Without it, the minute digits flash the whole screen every update.</li>

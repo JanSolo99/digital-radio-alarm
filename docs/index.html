@@ -75,14 +75,14 @@
 
   <h2>Specification</h2>
   <div class="spec-grid">
-    <dl class="spec-row"><dt>Enclosure</dt><dd>Mitred hardwood, ~145×95×70mm</dd></dl>
+    <dl class="spec-row"><dt>Enclosure</dt><dd>Mitred hardwood, 180×120×100mm</dd></dl>
     <dl class="spec-row"><dt>Brain</dt><dd>Raspberry Pi Zero 2 W</dd></dl>
     <dl class="spec-row"><dt>Display</dt><dd>2.9" e-ink, 296×128</dd></dl>
-    <dl class="spec-row"><dt>Audio</dt><dd>MAX98357A I2S → 50mm driver</dd></dl>
+    <dl class="spec-row"><dt>Audio</dt><dd>MAX98357A I2S → 3" ported driver</dd></dl>
     <dl class="spec-row"><dt>Controls</dt><dd>Rotary encoder + 3 buttons</dd></dl>
     <dl class="spec-row"><dt>Light</dt><dd>2700K strip, PWM dimmed</dd></dl>
     <dl class="spec-row"><dt>Power</dt><dd>5V 3A USB, SELV only</dd></dl>
-    <dl class="spec-row"><dt>Estimated cost</dt><dd>$290 AUD</dd></dl>
+    <dl class="spec-row"><dt>Estimated cost</dt><dd>~$320 AUD</dd></dl>
   </div>
 
   <h2>Where the project stands</h2>
@@ -142,6 +142,7 @@ systemd/
     <h3>About this plan</h3>
     <ul>
       <li>The build sequence was generated with blueprinthome.app, then reviewed against the electronics and the code already written. Four corrections are flagged inline on the build plan — a GPIO conflict between the light and the amplifier, a missing real-time clock, an ambiguous LED strip voltage, and a station-management step that's already been solved better than specified.</li>
+      <li>Cabinet dimensions and the driver were revised upward after sizing the design against a Tivoli Model One. The original 50mm driver in a one-litre box would have sounded like a small radio rather than a good one.</li>
       <li>The enclosure images are hand-drawn concept sketches, not renders or photographs of a finished object. Nothing here has been built yet.</li>
     </ul>
   </div>
