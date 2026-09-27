@@ -101,8 +101,10 @@ def render(mesh, view_dir, out, width=1400, height=1050, hide=(), up=(0, 0, 1), 
 if __name__ == "__main__":
     mesh = np.load(sys.argv[1])
     out = sys.argv[2]
+    lid_off = ("Carcass_Top", "Rear_Panel", "Rear_Screws", "Rear_Gasket", "Cable_Grommet",
+               "Button_", "Acoustic_Wadding")
     render(mesh, (0.55, 1.0, -0.42), out + "radio-front-three-quarter.png")
     render(mesh, (0.0, 1.0, 0.0), out + "radio-front.png")
     render(mesh, (-0.6, -1.0, -0.45), out + "radio-rear-three-quarter.png")
-    render(mesh, (-0.45, -0.8, -0.85), out + "radio-cutaway.png",
-           hide=("Carcass_Top", "Rear_Panel", "Rear_Screws", "Button_", "Cable_Grommet", "Rear_Cleats"))
+    render(mesh, (-0.45, -0.8, -0.85), out + "radio-cutaway.png", hide=lid_off)
+    render(mesh, (0.0, 0.0, -1.0), out + "radio-plan-cutaway.png", hide=lid_off, up=(0, 1, 0))

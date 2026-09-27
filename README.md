@@ -26,7 +26,7 @@ built and tested; display, audio, light and input code wait on real hardware.
 | Enclosure | Mitred hardwood, 180w × 120h × 100d mm, printed bezel and light hood |
 | Brain | Raspberry Pi Zero 2 W |
 | Display | 1.54" e-ink, 200×200 square, SPI, partial refresh |
-| Audio | MAX98357A I2S amp into a 3" 4Ω full-range driver, ported cabinet |
+| Audio | MAX98357A I2S amp into a Dayton Audio PC83-4 3" driver, sealed 0.64L chamber |
 | Controls | EC11 rotary encoder with push-select + 3 tactile buttons |
 | Light | 2700K 5V strip, PWM dimmed via MOSFET on GPIO12 or GPIO13 |
 | Timekeeping | DS3231 battery-backed RTC on I2C |
@@ -51,7 +51,7 @@ built and tested; display, audio, light and input code wait on real hardware.
   variety of internet radio stream formats for free.
 - **The cabinet is sized around the speaker, not the electronics.** Small-speaker output is mostly
   cone area and enclosure volume. The first spec (50mm driver, ~1L box) had too little of both; a
-  3" driver in a ported ~1.1L cabinet is the single biggest thing separating "sounds like a small
+  3" driver in its own sealed chamber is the single biggest thing separating "sounds like a small
   radio" from "sounds good". The 120mm height exists to give the driver frame real clearance.
 
 ## Structure

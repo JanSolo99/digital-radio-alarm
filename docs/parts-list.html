@@ -78,7 +78,7 @@
     </div>
     <div class="total-item">
       <div class="total-label">Supplies</div>
-      <div class="total-value">22</div>
+      <div class="total-value">23</div>
       <div class="total-note">consumed by the build</div>
     </div>
     <div class="total-item">
@@ -121,15 +121,18 @@
       <table>
         <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
         <tr><td class="part">MAX98357A I2S amplifier</td><td>3.2W mono Class-D</td><td class="note">Digital audio straight off the Pi's I2S pins — no separate DAC</td></tr>
-        <tr><td class="part">Full-range speaker</td><td>3" (76mm), 4Ω, 5–10W</td><td class="note">Paper or mylar cone. Check the frame's outer diameter and mounting depth against the baffle before cutting.</td></tr>
+        <tr><td class="part">Dayton Audio PC83-4</td><td>3", 4Ω, 86.8dB · 83mm frame, 77mm cutout, 50mm deep</td><td class="note">Chosen driver — best sound per dollar that fits the box. 4Ω suits the amplifier. Around US$15.</td></tr>
         <tr><td class="part">Speaker mesh grille</td><td>85–90mm brass or aluminium</td><td class="note">Perforated disc, sized to cover the cutout and the driver's mounting flange</td></tr>
         <tr><td class="part">Acoustic wadding</td><td>Polyester fill, a handful</td><td class="note">Lightly lining the cabinet walls kills internal reflections. Cheap, and audible.</td></tr>
-        <tr><td class="part">Bass port tube</td><td>3D printed</td><td class="note">No purchase — printed from the filament already listed, tuned once the box is built</td></tr>
+        <tr><td class="part">Divider</td><td>9mm birch ply, ~79×102mm</td><td class="note">Walls off the sealed speaker chamber from the electronics bay. Glued into 3mm grooves in the top and bottom boards.</td></tr>
+        <tr><td class="part">Closed-cell foam tape</td><td>1.5mm, about 1m</td><td class="note">Gaskets for the driver and the rear panel. The chamber only works if it's airtight.</td></tr>
       </table>
     </div>
     <div class="note-box">
-      <div class="note-label">Why this grew</div>
-      <p>The original spec had a 50mm driver in a one-litre box. Small-speaker output is mostly a function of cone area and enclosure volume, and that combination was short on both — it would have sounded like a small radio rather than a good one. The 3" driver in a ported ~1.1-litre cabinet is roughly half the internal volume of a Tivoli Model One, which is a real compromise, but it is the difference between thin and pleasant.</p>
+      <div class="note-label">Why this driver, and why a sealed box</div>
+      <p>The speaker gets its own sealed chamber of 0.64 litres, measured from the model. That is small, and it rules out most well-regarded 3" drivers: they either need a bigger box or are too quiet for a 3-watt amplifier. The PC83-4 suits it. In this chamber it gives a Qtc of about 1.0, which means slightly full, warm bass rolling off below roughly 150Hz. That's right for voices and radio music at bedside volume.</p>
+      <p>The Tang Band W3-2141 is the upgrade: lower distortion and a smoother top end, at about three and a half times the price. But its 92mm frame won't fit a 120mm-tall box with 12mm walls, so choosing it means making the cabinet taller.</p>
+      <p>A sealed box rather than a port: a port only works tuned to a specific driver with nothing else leaking, and it can chuff audibly. Sealed is simpler and more forgiving, and it's what the divider makes possible.</p>
       <p>The amplifier stays at 3.2W. That's well below the driver's rating and nowhere near a Tivoli's 6W, but into an efficient full-range driver it is comfortably loud for a bedroom — and this is a device with a maximum volume cap anyway.</p>
     </div>
   </section>
@@ -217,7 +220,7 @@
         <tr><th>Tool</th><th>Used for</th></tr>
         <tr><td class="part">Mitre saw or hand saw + mitre box</td><td class="note">45° mitres for the timber carcass sides</td></tr>
         <tr><td class="part">Cordless drill + brad-point bits</td><td class="note">6mm and 7mm holes for encoder shaft and buttons, plus pilot holes</td></tr>
-        <tr><td class="part">Hole saw</td><td class="note">~68mm cutout for the 3" driver. A hole saw rather than a Forstner bit — Forstners get expensive above about 50mm.</td></tr>
+        <tr><td class="part">Hole saw</td><td class="note">77mm cutout for the PC83-4. A hole saw rather than a Forstner bit — Forstners get expensive above about 50mm.</td></tr>
         <tr><td class="part">Band or corner clamps</td><td class="note">Holding mitred joints square while the PVA cures</td></tr>
         <tr><td class="part">3D printer or bureau access</td><td class="note">FDM, minimum 150×150mm bed — bezel, hood, brackets</td></tr>
         <tr><td class="part">Safety glasses and P2 mask</td><td class="note">Eye protection for drilling and sawing, dust protection for sanding</td></tr>

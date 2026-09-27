@@ -98,7 +98,7 @@
     <div class="step-num">01</div>
     <div>
       <h3>Finalise layout and internal dimensions</h3>
-      <p>Sketch the cabinet 1:1 on paper or in CAD. Target 180mm wide × 120mm tall × 100mm deep externally, which lands around 1.1 litres inside once 12mm walls are subtracted. Front face: the 3" driver behind its grille on one side, the 1.54-inch square e-ink display alongside it, encoder and three buttons along the bottom rail. Confirm which way the display's ribbon cable exits and how much depth the Pi needs stacked behind it. Note where the USB cable enters at the rear, and where the bass port will vent.</p>
+      <p>Sketch the cabinet 1:1 on paper or in CAD. Target 180mm wide × 120mm tall × 100mm deep externally, which lands around 1.1 litres inside once 12mm walls are subtracted. A 9mm divider splits the inside: a sealed speaker chamber on the left holding only the driver, and an electronics bay on the right. Front face: the driver behind its grille on the left, the 1.54-inch square e-ink display and the encoder on the right, and all three buttons on the top deck over the bay, so none of them pierce the speaker chamber. Confirm which way the display's ribbon cable exits and how much depth the Pi needs stacked behind it. Note where the USB cable enters at the rear. The model in <code>cad/</code> has all of this laid out and interference-checked.</p>
       <div class="check">
         <div class="check-label">Done when</div>
         <ul>
@@ -106,7 +106,7 @@
           <li>Actual display module PCB and ribbon length measured, not assumed</li>
           <li>Internal depth clears Pi + DAC + wiring behind the driver's magnet</li>
           <li>Control positions marked for comfortable one-handed use in the dark</li>
-          <li>Port location chosen — front or rear, clear of the electronics</li>
+          <li>Speaker chamber pierced only by the driver and one sealed wire pass-through</li>
         </ul>
       </div>
       <div class="note flag">
@@ -289,7 +289,7 @@
     <div class="step-num">08</div>
     <div>
       <h3>Design and print the bezel, light hood and brackets</h3>
-      <p>Model a front bezel in matte black PETG with a square window sized to the display's ~27.6mm active area, a shallow lip to hold the panel, and a forward-projecting hood along the top edge housing the LED strip and aiming it down across the e-ink face. Recess the window behind a visible surround so it reads as a dial window rather than a screen — on a wooden radio face that detail does more for the look than the panel choice does. Also print a Pi tray, DAC bracket, speaker ring, bass port tube and a button/encoder mounting plate. Print at 0.16mm layers.</p>
+      <p>Model a front bezel in matte black PETG with a square window sized to the display's ~27.6mm active area, a shallow lip to hold the panel, and a forward-projecting hood along the top edge housing the LED strip and aiming it down across the e-ink face. Recess the window behind a visible surround so it reads as a dial window rather than a screen — on a wooden radio face that detail does more for the look than the panel choice does. Also print the Pi tray, the display clamp, and the button plate that screws up under the top deck. Print at 0.16mm layers.</p>
       <div class="check">
         <div class="check-label">Done when</div>
         <ul>
@@ -307,13 +307,14 @@
     <div class="step-num">09</div>
     <div>
       <h3>Cut and assemble the timber cabinet</h3>
-      <p>Cut four sides from 100mm hardwood with 45° mitres — the stock width sets the cabinet depth — or repurpose a wooden box close to 180 wide × 120 high × 100 deep. Cut the ~68mm driver opening in the baffle with the hole saw and drill the encoder and button holes. Add a rear grommet hole for the power cable and an opening for the bass port. Glue up with PVA and clamps, checking for square.</p>
+      <p>Cut four sides from 100mm hardwood with 45° mitres — the stock width sets the cabinet depth — or repurpose a wooden box close to 180 wide × 120 high × 100 deep. Cut 3mm grooves in the top and bottom boards for the divider, then glue up the carcass with the divider in place, clamping and checking for square. Afterwards, rout a rebate around the front and rear openings for the baffle and rear panel to sit in. Cut the 77mm driver opening in the baffle with the hole saw, plus the display window and module pocket, and the encoder hole with its counterbore. Drill the button holes in the top deck and the cable grommet and vent slots in the rear panel.</p>
       <div class="check">
         <div class="check-label">Done when</div>
         <ul>
           <li>Driver test-fits its cutout with the mounting flange fully landed on the baffle</li>
           <li>Encoder and button threads reach through their panel far enough to take a nut — counterbore from behind if not</li>
-          <li>Control and port holes drilled before glue-up, while the stock is still flat</li>
+          <li>Button holes drilled before glue-up, while the stock is still flat</li>
+          <li>Divider sits tight in its grooves — this joint is part of the chamber seal</li>
           <li>Diagonals equal after clamping — the box is square</li>
           <li>Rear panel removable with four screws for servicing</li>
           <li>Carcass joints sound dead when tapped, not hollow — brace or thicken anything that rings</li>
@@ -358,13 +359,13 @@
     <div class="step-num">11</div>
     <div>
       <h3>Mount components and dress the wiring</h3>
-      <p>Screw the printed trays into the cabinet. Fit the driver behind the mesh grille with a thin foam gasket, seat the display in the bezel, and install the encoder and buttons from inside. Line the walls lightly with acoustic wadding, keeping it clear of the port. Convert the breadboard wiring to soldered, heatshrunk harnesses, route them clear of the driver's magnet, and fit the cable grommet.</p>
+      <p>Screw the printed trays into the cabinet. Fit the driver behind the mesh grille with a thin foam gasket, seat the display in the bezel, and install the encoder and buttons from inside. Line the rear half of the speaker chamber lightly with wadding, clear of the driver. Convert the breadboard wiring to soldered, heatshrunk harnesses, route them clear of the driver's magnet, and fit the cable grommet.</p>
       <div class="check">
         <div class="check-label">Done when</div>
         <ul>
           <li>All harnesses labelled and long enough to open the case fully</li>
-          <li>Driver gasket seals all the way round — an air leak buzzes and kills the port tuning</li>
-          <li>Wadding lines the walls without blocking or stuffing the port</li>
+          <li>Driver gasket seals all the way round — an air leak buzzes and weakens the bass</li>
+          <li>Rear panel compresses its gasket evenly, including along the divider's rear edge</li>
           <li>Strain relief on the USB cable at the grommet</li>
           <li>No wire pinched when the rear panel closes</li>
         </ul>
