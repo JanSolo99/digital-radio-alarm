@@ -5,3 +5,6 @@ venv/
 *.egg-info/
 .DS_Store
 .claude/
+cad/mesh.npz
+*.FCBak
+__pycache__/
