@@ -7,8 +7,8 @@ physical knob or button - the phone stays in another room.
 
 **Project site: https://jansolo99.github.io/digital-radio-alarm/**
 
-Status: planning complete, hardware not yet ordered. Station management and alarm scheduling are
-built and tested; display, audio, light and input code wait on real hardware.
+Status: **design V1 final.** Next step is a full-size printed test model (see the print guide),
+then parts and timber. Station management and alarm scheduling code are built and tested.
 
 ## Documentation
 
@@ -16,6 +16,8 @@ built and tested; display, audio, light and input code wait on real hardware.
   sequence from breadboard to burn-in, with acceptance criteria and review notes
 - [Parts list](https://jansolo99.github.io/digital-radio-alarm/parts-list.html) - all 29 items
   with the gotchas worth knowing before ordering
+- [Print guide](https://jansolo99.github.io/digital-radio-alarm/print-guide.html) - all 17
+  printable parts as print-oriented STLs in `cad/stl/`, fasteners, and what to check on the test model
 - [Enclosure concepts](https://jansolo99.github.io/digital-radio-alarm/enclosure-concepts.html) -
   the four directions considered, and which one won
 
@@ -69,6 +71,7 @@ src/
 data/
   favorites.json   saved stations
   alarms.json      configured alarms
+cad/               FreeCAD model (build_radio.py generates it), renders, STLs in cad/stl/
 docs/              the GitHub Pages project site
 systemd/
   digitalradioalarm.service       runs the clock app on boot

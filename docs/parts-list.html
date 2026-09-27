@@ -63,6 +63,7 @@
   <a href="index.html">Overview</a>
   <a href="build-plan.html">Build plan</a>
   <a href="parts-list.html" aria-current="page">Parts list</a>
+  <a href="print-guide.html">Print guide</a>
   <a href="enclosure-concepts.html">Enclosure concepts</a>
 </nav>
 <div class="sheet">
@@ -78,7 +79,7 @@
     </div>
     <div class="total-item">
       <div class="total-label">Supplies</div>
-      <div class="total-value">23</div>
+      <div class="total-value">27</div>
       <div class="total-note">consumed by the build</div>
     </div>
     <div class="total-item">
@@ -103,11 +104,15 @@
     <div class="table-wrap">
       <table>
         <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
-        <tr><td class="part">Raspberry Pi Zero 2 W</td><td>Quad-core, built-in WiFi</td><td class="note">A spare Pi 3A+ or 4 also works. No analog audio jack on the Zero — hence the I2S amp below.</td></tr>
+        <tr><td class="part">Raspberry Pi Zero 2 WH</td><td>Quad-core, built-in WiFi, header pre-soldered</td><td class="note">Get the "WH" with the GPIO header already fitted; it saves soldering 40 pins. No analog audio on the Zero, hence the I2S amp below.</td></tr>
         <tr><td class="part">microSD card</td><td>32GB, A1 rated</td><td class="note">Raspberry Pi OS Lite 64-bit</td></tr>
-        <tr><td class="part">DS3231 RTC module</td><td>I2C, coin-cell backed</td><td class="note">Battery-backed clock so the time is right at boot even if WiFi isn't</td></tr>
+        <tr><td class="part">DS3231 RTC module</td><td>ZS-042, 38×22mm, I2C</td><td class="note">Battery-backed clock so the time is right at boot even if WiFi isn't. <strong>See the battery warning below.</strong></td></tr>
         <tr><td class="part">CR2032 coin cell</td><td>—</td><td class="note">Powers the RTC's backup</td></tr>
       </table>
+    </div>
+    <div class="note-box">
+      <div class="note-label">Safety — the RTC module charges its battery</div>
+      <p>The common ZS-042 DS3231 board has a charging circuit that trickle-charges its coin cell. A normal CR2032 isn't rechargeable, and charging one can make it swell or leak. Either fit a rechargeable LIR2032, or remove the charging resistor (marked 201, next to the diode) before fitting a CR2032. The fix takes five minutes with a soldering iron.</p>
     </div>
     <div class="note-box">
       <div class="note-label">Added during review</div>
@@ -142,9 +147,9 @@
     <div class="table-wrap">
       <table>
         <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
-        <tr><td class="part">1.54" e-ink display</td><td>200×200 square, SPI</td><td class="note">Waveshare 1.54in e-Paper or equivalent. Confirm partial refresh support before buying — not every variant has it.</td></tr>
-        <tr><td class="part">Warm white LED strip</td><td>2700K, <strong>5V</strong>, ~100mm</td><td class="note">Top-down reading light in the printed hood</td></tr>
-        <tr><td class="part">N-channel MOSFET</td><td>Module, or 2N7000 + resistors</td><td class="note">PWM low-side switch so the Pi can dim the strip from GPIO12 or GPIO13</td></tr>
+        <tr><td class="part">1.54" e-ink display</td><td>Waveshare module, 48×33mm board, 200×200</td><td class="note">Buy the module (screen on its driver board), not the bare panel. The V2 supports partial refresh.</td></tr>
+        <tr><td class="part">COB LED strip</td><td>2700K, <strong>5V</strong>, 8mm wide, cut to ~40mm</td><td class="note">COB rather than a normal strip: a continuous line of light with no visible dots reflecting off the screen, and it can be cut short.</td></tr>
+        <tr><td class="part">Logic-level MOSFET module</td><td>AO3400 or D4184 based, ~18×17mm</td><td class="note">Lets the Pi dim the strip from GPIO12 or GPIO13. <strong>Not the common IRF520 module</strong>: it needs 10V to switch fully, and the Pi only gives 3.3V.</td></tr>
       </table>
     </div>
     <div class="note-box">
@@ -174,10 +179,14 @@
     <div class="table-wrap">
       <table>
         <tr><th>Part</th><th>Spec</th><th>Note</th></tr>
-        <tr><td class="part">USB power supply</td><td>5V 3A, RCM marked</td><td class="note">Australian-plug pack with compliance mark, plus matching cable</td></tr>
+        <tr><td class="part">USB power supply</td><td>5V 3A USB-C, RCM marked</td><td class="note">Australian plug pack with the compliance mark, plus a USB-C cable</td></tr>
+        <tr><td class="part">USB-C socket breakout</td><td>Panel-mount style, with 5.1kΩ CC resistors</td><td class="note">The power inlet on the back. Without the two resistors, a USB-C charger supplies nothing at all, so check the listing says "5.1k" or "CC resistors".</td></tr>
         <tr><td class="part">Hookup wire, headers, heatshrink</td><td>26AWG silicone, 2.54mm headers, JST</td><td class="note">Assorted, for the soldered harnesses</td></tr>
-        <tr><td class="part">Screw and standoff kit</td><td>M2 / M2.5 / M3, nylon</td><td class="note">Mounting the Pi, DAC and display</td></tr>
-        <tr><td class="part">Felt feet and cable grommet</td><td>—</td><td class="note">Non-slip base, plus strain relief where the USB cable enters</td></tr>
+        <tr><td class="part">Screws</td><td>M3×12 ×13, M2.5×8 ×4, M2.5×5 ×4</td><td class="note">Rear panel, driver and button plate (M3); display clamp (M2.5×8); Pi (M2.5×5). Full list in the print guide.</td></tr>
+        <tr><td class="part">Heat-set inserts</td><td>M3 ×13, M2.5 ×4</td><td class="note">Only for the printed test model; the timber build takes wood screws instead</td></tr>
+        <tr><td class="part">Mounting and sealing tape</td><td>1mm VHB, 1.5mm closed-cell foam</td><td class="note">VHB holds the amp, RTC and dimmer on the divider; foam seals the driver and rear panel</td></tr>
+        <tr><td class="part">Felt feet</td><td>14mm, ×4</td><td class="note">Non-slip base</td></tr>
+        <tr><td class="part">Rubber grommet</td><td>8mm hole, 3mm bore</td><td class="note">Speaker wires through the divider. Seal it with a dab of silicone.</td></tr>
       </table>
     </div>
   </section>

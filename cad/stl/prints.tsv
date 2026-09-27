@@ -1,0 +1,18 @@
+part	role	x	y	z	bed	note
+Carcass_Top	stand-in	180.0	100.0	12.0	flat	outer face down; mitres print as chamfers
+Carcass_Bottom	stand-in	180.0	100.0	12.0	flat	outer face down
+Carcass_Left	stand-in	120.0	100.0	12.0	flat	outer face down
+Carcass_Right	stand-in	120.0	100.0	12.0	flat	outer face down
+Front_Baffle	stand-in	163.6	103.6	9.0	flat	front face down; pocket and counterbore face up
+Divider	stand-in	101.6	79.0	9.0	flat	flat
+Rear_Panel	stand-in	167.6	107.6	6.0	flat	inner face down, so the screw counterbores face up
+Speaker_Grille	stand-in	88.0	88.0	1.2	flat	flat; the real one is brass mesh
+Bezel_and_Hood	final	46.0	49.5	16.0	flat	back face down; hood prints as a wall, lip is chamfered
+Encoder_Knob	final	35.0	35.0	14.0	flat	front face down; bore and nut recess face up
+Button_Snooze	final	24.0	24.0	19.0	flat	flange down
+Button_Menu	final	16.0	16.0	18.0	flat	flange down
+Button_Dismiss	final	16.0	16.0	18.0	flat	flange down
+Button_Plate	final	30.0	70.0	12.0	flat	bosses up
+Pi_Tray	final	36.0	71.0	6.0	flat	standoffs up
+Display_Clamp	final	50.0	43.0	3.0	flat	flat
+USBC_Saddle	final	11.0	17.5	3.0	flat	flat

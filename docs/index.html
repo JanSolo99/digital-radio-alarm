@@ -66,13 +66,14 @@
   <a href="index.html" aria-current="page">Overview</a>
   <a href="build-plan.html">Build plan</a>
   <a href="parts-list.html">Parts list</a>
+  <a href="print-guide.html">Print guide</a>
   <a href="enclosure-concepts.html">Enclosure concepts</a>
 </nav>
 <div class="page">
   <div class="eyebrow">Project plan</div>
   <h1>Digital radio alarm</h1>
   <p class="lede">A bedside internet radio alarm clock in a retro wood cabinet. An e-ink display shows the time, date and what's playing, lit from above by a dimmable warm light. Alarms pair a time with a station and fade up from silence over a minute. Everything you'd do half-asleep is a physical knob or button — the phone stays in another room.</p>
-  <div class="status">Planning complete — hardware not yet ordered, station management working</div>
+  <div class="status">Design V1 final — ready for a printed test model</div>
 
   <h2>The one rule this design answers to</h2>
   <p>No phone at the bedside. Every function you'd reach for in the dark — silencing an alarm, snoozing, turning on the light, changing station, adjusting volume — is a knob or a button on the device itself. The web page exists only for the occasional curating job you'd do from a couch, never as a dependency at 6am.</p>
@@ -96,7 +97,7 @@
     <dl class="spec-row"><dt>Audio</dt><dd>MAX98357A → Dayton PC83-4, sealed</dd></dl>
     <dl class="spec-row"><dt>Controls</dt><dd>Rotary encoder + 3 buttons</dd></dl>
     <dl class="spec-row"><dt>Light</dt><dd>2700K strip, PWM dimmed</dd></dl>
-    <dl class="spec-row"><dt>Power</dt><dd>5V 3A USB, SELV only</dd></dl>
+    <dl class="spec-row"><dt>Power</dt><dd>5V 3A USB-C inlet, SELV only</dd></dl>
     <dl class="spec-row"><dt>Estimated cost</dt><dd>~$320 AUD</dd></dl>
   </div>
 
@@ -125,9 +126,14 @@
       <p>The full sequence from breadboard to burn-in, with acceptance criteria and four corrections flagged inline.</p>
     </a>
     <a class="card" href="parts-list.html">
-      <div class="card-eyebrow">29 items</div>
+      <div class="card-eyebrow">37 items</div>
       <h3>Parts list</h3>
       <p>Every component and tool, grouped by subsystem, with the gotchas worth knowing before ordering.</p>
+    </a>
+    <a class="card" href="print-guide.html">
+      <div class="card-eyebrow">17 STLs · ~410g</div>
+      <h3>Print guide</h3>
+      <p>Every printable part, oriented for the bed, plus the checks to make on the test model.</p>
     </a>
     <a class="card" href="enclosure-concepts.html">
       <div class="card-eyebrow">Concept sketches</div>

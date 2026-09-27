@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Print guide — Digital radio alarm</title>
+<style>
+  :root {
+    --paper: #EEF1F3; --surface: #FFFFFF; --ink: #16232F; --ink-muted: #57697A;
+    --line: #D7DFE6; --accent: #2B5D96; --accent-soft: #E3ECF5; --accent-ink: #17395C;
+    --copper: #A85A26; --flag: #A85A26; --flag-soft: #F8EDE4; --flag-line: #E8CDB4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #10161C; --surface: #161E26; --ink: #E7EDF2; --ink-muted: #93A4B3;
+      --line: #29333F; --accent: #7CAEE0; --accent-soft: #1D2C3C; --accent-ink: #CFE3F5;
+      --copper: #D68A52; --flag: #E0A46A; --flag-soft: #2A2018; --flag-line: #4A3826;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); line-height: 1.55; }
+  .nav { display: flex; flex-wrap: wrap; gap: 1.25rem; max-width: 800px; margin: 0 auto; padding: 1.5rem 1.5rem 0; font-size: 0.85rem; }
+  .nav a { color: var(--ink-muted); text-decoration: none; }
+  .nav a[aria-current="page"] { color: var(--accent); font-weight: 600; }
+  .nav a:hover { color: var(--accent); }
+  .sheet { max-width: 800px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+  .eyebrow { font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  h1 { font-size: 1.9rem; font-weight: 600; margin: 0.4rem 0 0.3rem; text-wrap: balance; }
+  .subhead { color: var(--ink-muted); font-size: 0.98rem; margin: 0 0 1.5rem; max-width: 62ch; }
+  .totals { display: flex; flex-wrap: wrap; gap: 2rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 1rem 0; margin-bottom: 2.5rem; }
+  .total-item .total-label { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); }
+  .total-item .total-value { font-size: 1.4rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .total-item .total-note { font-size: 0.8rem; color: var(--ink-muted); }
+  .group { margin: 0 0 2.75rem; }
+  .group-head { display: flex; align-items: baseline; gap: 0.6rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; margin-bottom: 0.9rem; }
+  .group-head .dot { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; flex: none; }
+  .group-head h2 { font-size: 1.05rem; font-weight: 600; margin: 0; }
+  .section-head { margin: 3.5rem 0 1.5rem; }
+  .section-head h2 { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0; }
+  .section-head p { margin: 0.35rem 0 0; font-size: 0.9rem; color: var(--ink-muted); max-width: 62ch; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th { text-align: left; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-muted); font-weight: 500; padding: 0 0.75rem 0.5rem 0; white-space: nowrap; }
+  td { padding: 0.6rem 0.75rem 0.6rem 0; border-top: 0.5px solid var(--line); vertical-align: top; }
+  td.part { font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; font-size: 0.85rem; color: var(--copper); }
+  td.note { color: var(--ink-muted); }
+  .qty { display: inline-block; font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; font-size: 0.75rem; color: var(--ink-muted); border: 0.5px solid var(--line); border-radius: 4px; padding: 0 0.35em; margin-left: 0.4em; }
+  code { font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace; background: var(--surface); border: 0.5px solid var(--line); border-radius: 4px; padding: 0.1em 0.4em; font-size: 0.85em; color: var(--ink); }
+  .note-box { border-radius: 10px; padding: 1rem 1.2rem; margin-top: 1rem; font-size: 0.9rem; background: var(--flag-soft); border: 0.5px solid var(--flag-line); }
+  .note-box .note-label { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 600; color: var(--flag); }
+  .note-box p { margin: 0 0 0.5rem; }
+  .note-box p:last-child { margin: 0; }
+  .callout { background: var(--accent-soft); border: 0.5px solid var(--line); border-radius: 10px; padding: 1.1rem 1.3rem; margin-top: 3rem; }
+  .callout h3 { margin: 0 0 0.6rem; font-size: 0.95rem; font-weight: 600; color: var(--accent-ink); }
+  .callout ul { margin: 0; padding-left: 1.1rem; }
+  .callout li { margin-bottom: 0.4rem; }
+  .callout li:last-child { margin-bottom: 0; }
+  td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  td.part a { color: inherit; text-decoration: none; border-bottom: 0.5px solid var(--line); }
+  td.part a:hover { color: var(--accent); }
+  ol.steps { padding-left: 1.2rem; } ol.steps li { margin-bottom: 0.5rem; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html">Overview</a>
+  <a href="build-plan.html">Build plan</a>
+  <a href="parts-list.html">Parts list</a>
+  <a href="print-guide.html" aria-current="page">Print guide</a>
+  <a href="enclosure-concepts.html">Enclosure concepts</a>
+</nav>
+<div class="sheet">
+  <div class="eyebrow">Print guide · V1</div>
+  <h1>Print a full-size test model</h1>
+  <p class="subhead">Every part that isn't bought exports as an STL, already rotated with its best face on the bed. Print the lot to check that every component fits and every control reaches, before any timber is cut. After that, only the final parts need printing again.</p>
+
+  <div class="totals">
+    <div class="total-item"><div class="total-label">Parts</div><div class="total-value">17</div><div class="total-note">no supports needed</div></div>
+    <div class="total-item"><div class="total-label">Filament</div><div class="total-value">~414g</div><div class="total-note">one 1kg spool covers it</div></div>
+    <div class="total-item"><div class="total-label">Minimum bed</div><div class="total-value">220 × 210</div><div class="total-note">largest part 180 × 100mm</div></div>
+  </div>
+
+  <div class="note-box">
+    <div class="note-label">Bed size</div>
+    <p>The top and bottom boards are 180mm long, which doesn't fit a 180×180 bed even diagonally. Any 220mm-class printer is fine: Ender 3, Prusa MK4, and every Bambu except the A1 mini. On a smaller bed, those two boards would need splitting.</p>
+  </div>
+
+  <div class="section-head">
+    <h2>Final parts</h2>
+    <p>These go into the finished radio. Print them in matte black PETG, or PLA for the test fit. 0.16mm layers for the knob, buttons and bezel; 0.2mm is fine for the rest.</p>
+  </div>
+  <section class="group"><div class="table-wrap"><table>
+        <tr><th>Part</th><th>Size (mm)</th><th>Filament</th><th>Orientation</th></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Bezel_and_Hood.stl">Bezel and Hood</a></td><td class="num">46.0 × 49.5 × 16.0</td><td class="num">~5g</td><td class="note">Back face down; hood prints as a wall, lip is chamfered</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Encoder_Knob.stl">Encoder Knob</a></td><td class="num">35.0 × 35.0 × 14.0</td><td class="num">~8g</td><td class="note">Front face down; bore and nut recess face up</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Button_Snooze.stl">Button Snooze</a></td><td class="num">24.0 × 24.0 × 19.0</td><td class="num">~5g</td><td class="note">Flange down</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Button_Menu.stl">Button Menu</a></td><td class="num">16.0 × 16.0 × 18.0</td><td class="num">~2g</td><td class="note">Flange down</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Button_Dismiss.stl">Button Dismiss</a></td><td class="num">16.0 × 16.0 × 18.0</td><td class="num">~2g</td><td class="note">Flange down</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Button_Plate.stl">Button Plate</a></td><td class="num">30.0 × 70.0 × 12.0</td><td class="num">~5g</td><td class="note">Bosses up</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Pi_Tray.stl">Pi Tray</a></td><td class="num">36.0 × 71.0 × 6.0</td><td class="num">~4g</td><td class="note">Standoffs up</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Display_Clamp.stl">Display Clamp</a></td><td class="num">50.0 × 43.0 × 3.0</td><td class="num">~3g</td><td class="note">Flat</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/USBC_Saddle.stl">USB-C Saddle</a></td><td class="num">11.0 × 17.5 × 3.0</td><td class="num">~1g</td><td class="note">Flat</td></tr>
+  </table></div></section>
+
+  <div class="section-head">
+    <h2>Test-model stand-ins</h2>
+    <p>Full-size stand-ins for the timber carcass, baffle, divider and rear panel, plus the brass grille. They exist to prove the fit. Any colour will do: 0.2mm layers, 3 walls, 15% infill. Glue the four carcass boards at the mitres with the divider in its grooves, exactly as the timber will be.</p>
+  </div>
+  <section class="group"><div class="table-wrap"><table>
+        <tr><th>Part</th><th>Size (mm)</th><th>Filament</th><th>Orientation</th></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Carcass_Top.stl">Carcass Top</a></td><td class="num">180.0 × 100.0 × 12.0</td><td class="num">~76g</td><td class="note">Outer face down; mitres print as chamfers</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Carcass_Bottom.stl">Carcass Bottom</a></td><td class="num">180.0 × 100.0 × 12.0</td><td class="num">~79g</td><td class="note">Outer face down</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Carcass_Left.stl">Carcass Left</a></td><td class="num">120.0 × 100.0 × 12.0</td><td class="num">~52g</td><td class="note">Outer face down</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Carcass_Right.stl">Carcass Right</a></td><td class="num">120.0 × 100.0 × 12.0</td><td class="num">~52g</td><td class="note">Outer face down</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Front_Baffle.stl">Front Baffle</a></td><td class="num">163.6 × 103.6 × 9.0</td><td class="num">~42g</td><td class="note">Front face down; pocket and counterbore face up</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Divider.stl">Divider</a></td><td class="num">101.6 × 79.0 × 9.0</td><td class="num">~31g</td><td class="note">Flat</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Rear_Panel.stl">Rear Panel</a></td><td class="num">167.6 × 107.6 × 6.0</td><td class="num">~45g</td><td class="note">Inner face down, so the screw counterbores face up</td></tr>
+        <tr><td class="part"><a href="https://github.com/JanSolo99/digital-radio-alarm/raw/master/cad/stl/Speaker_Grille.stl">Speaker Grille</a></td><td class="num">88.0 × 88.0 × 1.2</td><td class="num">~2g</td><td class="note">Flat; the real one is brass mesh</td></tr>
+  </table></div></section>
+
+  <div class="section-head">
+    <h2>Fasteners</h2>
+    <p>In the printed test model, screws go into heat-set inserts. In the timber build, use wood screws in the same places.</p>
+  </div>
+  <section class="group"><div class="table-wrap"><table>
+        <tr><th>Where</th><th>Qty</th><th>Fastener</th></tr>
+        <tr><td class="part">Rear panel</td><td class="num">7</td><td class="note">M3×12 into M3 inserts in the rebate shoulders and the divider's back edge</td></tr>
+        <tr><td class="part">Driver</td><td class="num">4</td><td class="note">M3×12 through the frame into the baffle. Mark the holes from the actual driver</td></tr>
+        <tr><td class="part">Button plate</td><td class="num">2</td><td class="note">M3×12 up through the bosses into the underside of the top deck</td></tr>
+        <tr><td class="part">Display clamp</td><td class="num">4</td><td class="note">M2.5×8 into the back of the baffle</td></tr>
+        <tr><td class="part">Pi</td><td class="num">4</td><td class="note">M2.5×5 into the tray's standoffs. Glue or tape the tray to the floor</td></tr>
+        <tr><td class="part">Amp, RTC, dimmer</td><td class="num">—</td><td class="note">1mm VHB tape on the divider (no screw holes needed)</td></tr>
+        <tr><td class="part">Encoder</td><td class="num">1</td><td class="note">Its own nut and washer, from the front</td></tr>
+        <tr><td class="part">USB-C breakout</td><td class="num">—</td><td class="note">Socket through the rear slot, board glued to its saddle</td></tr>
+  </table></div></section>
+
+  <div class="callout">
+    <h3>What the test model is for — check these before cutting timber</h3>
+    <ol class="steps">
+      <li><strong>Display window alignment.</strong> The active area's position on the glass isn't in Waveshare's data. The model assumes a 2.2mm margin on one side (<code>GLASS_MARGIN_NEAR</code> in <code>cad/build_radio.py</code>). Check it against your module, adjust, and reprint the bezel and baffle.</li>
+      <li><strong>Digit size from bed.</strong> The clock digits come out about 6.7mm tall. Stand the model on your nightstand and check you can read them from the pillow.</li>
+      <li><strong>Knob fit.</strong> It should push onto the D-shaft firmly and clear the nut. If it's loose, reduce the bore by 0.1mm and reprint.</li>
+      <li><strong>Button travel.</strong> Each cap should click its switch cleanly and not rub the deck.</li>
+      <li><strong>Driver screw holes.</strong> Mark them from the real driver and drill; they aren't in the model on purpose.</li>
+      <li><strong>Seal.</strong> With the rear panel screwed down, press the speaker cone gently: it should push back slowly, like a closed bottle, rather than moving freely.</li>
+    </ol>
+  </div>
+</div>
+</body>
+</html>
