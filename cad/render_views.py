@@ -42,12 +42,14 @@ def export_mesh(path, tolerance=0.2):
 BACKGROUND = np.array([0.957, 0.949, 0.933])
 
 
-def render(mesh, view_dir, out, width=1400, height=1050, hide=(), up=(0, 0, 1), margin=0.06):
+def render(mesh, view_dir, out, width=1400, height=1050, hide=(), up=(0, 0, 1), margin=0.06, offsets=None):
     import matplotlib.pyplot as plt
 
     P, T, C, N = mesh["P"], mesh["T"], mesh["C"], mesh["N"]
     keep = np.array([not any(str(n).startswith(h) for h in hide) for n in N])
-    tri, col, names = P[T[keep]], C[keep], N[keep].astype(str)
+    tri, col, names = P[T[keep]].copy(), C[keep], N[keep].astype(str)
+    for prefix, delta in (offsets or {}).items():      # exploded views
+        tri[np.char.startswith(names, prefix)] += np.asarray(delta, float)
 
     v = np.asarray(view_dir, float)
     v /= np.linalg.norm(v)
@@ -98,6 +100,15 @@ def render(mesh, view_dir, out, width=1400, height=1050, hide=(), up=(0, 0, 1), 
     plt.imsave(out, img)
 
 
+EXPLODE = {
+    "Carcass_Top": (0, 0, 70), "Button_": (0, 0, 95), "Switch_": (0, 0, 35), "Button_Plate": (0, 0, 35),
+    "Rear_": (0, 80, 0), "Cable_Grommet": (0, 80, 0),
+    "Front_Baffle": (0, -70, 0), "Speaker_Grille": (0, -95, 0), "Bezel_and_Hood": (0, -95, 0),
+    "LED_Strip": (0, -95, 0), "EInk_Panel": (0, -80, 0), "Face_": (0, -80, 0), "Encoder_Knob": (0, -110, 0),
+    "Knob_Indicator": (0, -110, 0),
+}
+
+
 if __name__ == "__main__":
     mesh = np.load(sys.argv[1])
     out = sys.argv[2]
@@ -108,3 +119,10 @@ if __name__ == "__main__":
     render(mesh, (-0.6, -1.0, -0.45), out + "radio-rear-three-quarter.png")
     render(mesh, (-0.45, -0.8, -0.85), out + "radio-cutaway.png", hide=lid_off)
     render(mesh, (0.0, 0.0, -1.0), out + "radio-plan-cutaway.png", hide=lid_off, up=(0, 1, 0))
+    render(mesh, (0.0, -1.0, 0.0), out + "radio-rear-open.png",
+           hide=("Rear_Panel", "Rear_Screws", "Cable_Grommet", "Acoustic_Wadding"))
+    render(mesh, (-0.9, -0.55, -0.7), out + "radio-electronics-bay.png",
+           hide=lid_off + ("Carcass_Right", "Switch_", "Button_Plate"))
+    render(mesh, (0.9, -0.55, -0.7), out + "radio-speaker-chamber.png",
+           hide=lid_off + ("Carcass_Left",))
+    render(mesh, (0.75, 1.0, -0.55), out + "radio-exploded.png", hide=("Acoustic_Wadding",), offsets=EXPLODE)
