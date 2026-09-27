@@ -22,7 +22,8 @@ Printing
 Every non-bought part exports as an STL, rotated so its best face is on
 the bed. The wooden parts (carcass, baffle, divider, rear panel) export
 too, so a complete test model can be printed at full size before any
-timber is cut. Design rule: every part fits a 220 x 210 mm bed.
+timber is cut. Target printer: Elegoo Centauri Carbon (256mm cube, 0.4mm
+nozzle, PLA). The largest part is 180 x 100mm, so anything 220mm-class works too.
 Clearances for printed fits are set by FIT.
 
 Bought parts, dimensions from manufacturer data:
@@ -94,7 +95,7 @@ BUTTONS = [("Snooze", 30.0, 10.0), ("Menu", 58.0, 6.0), ("Dismiss", 82.0, 6.0)]
 SWITCH_BODY_H = 3.8
 SWITCH_TOTAL_H = 7.3
 
-BED = (220.0, 210.0)
+BED = (256.0, 256.0)                   # Elegoo Centauri Carbon at the Canberra maker space
 
 # ── Colours ─────────────────────────────────────────────────────────────
 WALNUT = (0.36, 0.22, 0.13)
@@ -501,7 +502,11 @@ def export_stls(doc, out_dir):
         bb = shape.BoundBox
         shape.translate(V(-bb.Center.x, -bb.Center.y, -bb.ZMin))
         bb = shape.BoundBox
-        shape.exportStl(os.path.join(out_dir, f"{label}.stl"))
+        # Binary STL at 0.02mm chordal tolerance: far finer than any FDM printer
+        # resolves, without the tens-of-megabytes ASCII files exportStl writes.
+        import MeshPart
+        mesh = MeshPart.meshFromShape(Shape=shape, LinearDeflection=0.02, AngularDeflection=0.25, Relative=False)
+        mesh.write(os.path.join(out_dir, f"{label}.stl"))
         report.append((label, role, round(bb.XLength, 1), round(bb.YLength, 1), round(bb.ZLength, 1),
                        bed_fit(bb.XLength, bb.YLength), note))
     with open(os.path.join(out_dir, "prints.tsv"), "w") as f:
