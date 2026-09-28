@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alternative designs — Digital radio alarm</title>
+<style>
+  :root {
+    --room: #1B1D24; --panel: #24262F; --panel-line: #383A45;
+    --ink: #EDEAE3; --ink-muted: #9B9890; --glow: #E8A555;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--room); }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--ink); }
+  .nav {
+    display: flex; gap: 1.25rem; max-width: 920px; margin: 0 auto; padding: 1.5rem 1.5rem 0;
+    font-size: 0.85rem;
+  }
+  .nav a { color: var(--ink-muted); text-decoration: none; }
+  .nav a[aria-current="page"] { color: var(--glow); font-weight: 600; }
+  .nav a:hover { color: var(--glow); }
+  .board { max-width: 920px; margin: 0 auto; padding: 1.5rem 1.5rem 4rem; }
+  .eyebrow {
+    font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--glow);
+  }
+  h1 {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-size: 2rem; font-weight: 400; margin: 0.5rem 0 0.4rem; text-wrap: balance;
+  }
+  .subhead { color: var(--ink-muted); max-width: 58ch; margin: 0 0 2.5rem; font-size: 0.98rem; line-height: 1.6; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+  .concept { background: var(--panel); border: 0.5px solid var(--panel-line); border-radius: 14px; padding: 1.5rem 1.5rem 1.7rem; }
+  .concept.chosen { border: 1px solid var(--glow); }
+  .badge {
+    display: inline-block; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase;
+    font-weight: 600; color: #2A1E12; background: var(--glow); border-radius: 999px;
+    padding: 0.2rem 0.7rem; margin-bottom: 0.8rem;
+  }
+  .concept.chosen .spec { color: var(--glow); }
+  .concept svg { width: 100%; height: auto; display: block; margin-bottom: 1rem; }
+  .concept h2 {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-weight: 400; font-size: 1.3rem; margin: 0 0 0.5rem;
+  }
+  .concept p { margin: 0 0 0.9rem; color: var(--ink-muted); font-size: 0.94rem; line-height: 1.55; }
+  .spec {
+    font-family: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+    font-size: 0.78rem; color: var(--glow); border-top: 0.5px solid var(--panel-line);
+    padding-top: 0.7rem; letter-spacing: 0.01em;
+  }
+  .renders { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin: 1rem 0 1.2rem; }
+  .renders figure { margin: 0; background: #f4f2ee; border-radius: 10px; overflow: hidden; }
+  .renders img { display: block; width: 100%; height: auto; }
+  .renders figcaption { font-size: 0.75rem; color: #57697A; padding: 0.35rem 0.6rem 0.5rem; }
+  .design { background: var(--panel); border: 0.5px solid var(--panel-line); border-radius: 14px; padding: 1.6rem 1.6rem 1.4rem; margin-bottom: 1.8rem; }
+  .design h2 { font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif; font-weight: 400; font-size: 1.5rem; margin: 0.2rem 0 0.6rem; }
+  .design p { color: var(--ink-muted); line-height: 1.6; margin: 0 0 0.9rem; max-width: 70ch; }
+  .design p strong { color: var(--ink); font-weight: 600; }
+  .tradeoffs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 0.4rem; }
+  .tradeoffs h3 { font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase; margin: 0 0 0.4rem; color: var(--glow); font-weight: 600; }
+  .tradeoffs ul { margin: 0; padding-left: 1.1rem; color: var(--ink-muted); font-size: 0.92rem; line-height: 1.55; }
+  .tradeoffs li { margin-bottom: 0.35rem; }
+  .compare-wrap { overflow-x: auto; margin: 0 0 2.2rem; }
+  table.compare { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  table.compare th, table.compare td { text-align: left; padding: 0.55rem 0.8rem 0.55rem 0; border-bottom: 0.5px solid var(--panel-line); vertical-align: top; }
+  table.compare th { color: var(--glow); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
+  table.compare td:first-child { color: var(--ink-muted); white-space: nowrap; }
+  table.compare td { font-variant-numeric: tabular-nums; }
+  .note { font-size: 0.86rem; color: var(--ink-muted); border-left: 2px solid var(--panel-line); padding-left: 1rem; max-width: 70ch; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html">Overview</a>
+  <a href="build-plan.html">Build plan</a>
+  <a href="parts-list.html">Parts list</a>
+  <a href="print-guide.html">Print guide</a>
+  <a href="enclosure-concepts.html">Enclosure concepts</a>
+  <a href="alternatives.html" aria-current="page">Alternatives</a>
+</nav>
+<div class="board">
+  <div class="eyebrow">Alternative designs</div>
+  <h1>Same radio, two more bodies</h1>
+  <p class="subhead">Two full alternatives to V1, modelled in FreeCAD with the same bought parts inside: PC83-4 speaker, 1.54" e-ink, encoder, Pi Zero 2 W. Both are checked for part collisions and give their speaker a sealed chamber of measured volume. They are design studies. Neither has had V1's printability pass yet, which would come after choosing one.</p>
+
+  <div class="compare-wrap"><table class="compare">
+    <tr><th></th><th>V1 · Dial</th><th>Sunrise</th><th>Pebble</th></tr>
+    <tr><td>Size (w × h × d)</td><td>180 × 120 × 100mm</td><td>150 × 155 × 94mm</td><td>170 × 108 × 129mm</td></tr>
+    <tr><td>Speaker chamber</td><td>0.64L · Qtc 1.04</td><td>0.63L · Qtc 1.04</td><td>0.69L · Qtc 1.00</td></tr>
+    <tr><td>Sound</td><td>Forward</td><td>Forward</td><td>Down, spreading all round</td></tr>
+    <tr><td>Controls</td><td>Knob front; 3 buttons on top</td><td>Snooze + knob front; menu, dismiss on side</td><td>Rotating top puck (press = snooze); 2 top buttons</td></tr>
+    <tr><td>Light</td><td>Hood over display</td><td>Hood + sunrise halo wake-up light</td><td>Slim eyebrow over display</td></tr>
+    <tr><td>Made from</td><td>Mitred hardwood + printed parts</td><td>Arched shell: printed, or laminated timber</td><td>Printed shell, optionally fabric-wrapped</td></tr>
+  </table></div>
+
+  <section class="design">
+    <div class="eyebrow">Alternative A · my own choice</div>
+    <h2>Sunrise</h2>
+    <div class="renders">
+      <figure><img src="img/alt-sunrise-front-three-quarter.png" alt="Arched oak cabinet with a navy front; a brass sunburst speaker grille ringed by a glowing halo sits above a brass horizon bar, with a brass snooze button, small square e-ink display and silver knob below"><figcaption>Front three-quarter</figcaption></figure>
+      <figure><img src="img/alt-sunrise-front.png" alt="Front elevation of the Sunrise design"><figcaption>Front</figcaption></figure>
+      <figure><img src="img/alt-sunrise-rear-three-quarter.png" alt="Rear of the arched cabinet showing the ply back panel, USB-C inlet and vents"><figcaption>Rear three-quarter</figcaption></figure>
+      <figure><img src="img/alt-sunrise-cutaway.png" alt="Cutaway showing the speaker in the arch above a horizontal divider, with the electronics bay below"><figcaption>Cutaway — arch chamber over the electronics</figcaption></figure>
+    </div>
+    <p>The one moment this device exists for is waking up, so the whole front is a sunrise. The speaker grille is the sun, its radial slots are the rays, and a warm translucent halo rings it. A brass <strong>horizon</strong> bar crosses the full width, and the sun sits just behind it.</p>
+    <p>The halo is functional as well: it's a <strong>wake-up light</strong>. It can fade up over ten minutes <em>before</em> the radio starts, like the sunrise-alarm lamps sold for exactly this, and double as a night light. The horizon bar is also the hood lighting the display beneath it. Under the horizon sit snooze on the left, the display in the middle and the knob on the right. Menu and dismiss move to the side face, where a half-asleep hand won't find them by accident.</p>
+    <div class="tradeoffs">
+      <div><h3>Gains</h3><ul>
+        <li>A wake-up light is a real feature, not decoration, and needs only one more dimmer channel</li>
+        <li>Narrowest footprint of the three (150 × 94mm)</li>
+        <li>Snooze is a big front button, the easiest to hit in the dark</li>
+      </ul></div>
+      <div><h3>Costs</h3><ul>
+        <li>Tallest at 155mm, which is more presence on a nightstand</li>
+        <li>An arched carcass is hard in solid timber: it needs a bent lamination or a CNC router, or it gets printed</li>
+        <li>Two lights to drive and wire instead of one</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section class="design">
+    <div class="eyebrow">Alternative B · modern smart device</div>
+    <h2>Pebble</h2>
+    <div class="renders">
+      <figure><img src="img/alt-pebble-front-three-quarter.png" alt="Smooth chalk-coloured pebble-shaped body with a black glass face holding a small e-ink display under a light eyebrow, and an aluminium puck with two small buttons on top"><figcaption>Front three-quarter</figcaption></figure>
+      <figure><img src="img/alt-pebble-front.png" alt="Front elevation of the Pebble design"><figcaption>Front</figcaption></figure>
+      <figure><img src="img/alt-pebble-underside.png" alt="Underside showing the perforated speaker grille and three feet that leave a gap for sound"><figcaption>Underside — down-firing speaker</figcaption></figure>
+      <figure><img src="img/alt-pebble-cutaway.png" alt="Cutaway with the shell removed, showing electronics on a shelf above the down-firing speaker"><figcaption>Cutaway — electronics on the shelf, speaker below</figcaption></figure>
+    </div>
+    <p>Built like a modern smart speaker. The speaker <strong>fires down</strong> into a 10mm gap under the body, as a HomePod mini does, so sound spreads evenly round the room and no grille breaks the surface. The front is a flat facet tilted 25° back, finished as a <strong>black glass face</strong>, with the e-ink display angled up toward you in bed and a slim light eyebrow above it.</p>
+    <p>The top carries a rotating aluminium <strong>puck</strong>. Turn it for volume or station, press it to select, and while the alarm is ringing, pressing it snoozes, so the easiest thing to slap is the right thing. Menu and dismiss are the two small buttons beside it.</p>
+    <div class="tradeoffs">
+      <div><h3>Gains</h3><ul>
+        <li>Best acoustics of the three: the largest chamber (0.69L, Qtc 1.00) and all-round sound</li>
+        <li>Display angled up toward the pillow, easier to read lying down</li>
+        <li>Lowest at 108mm, and it looks at home next to other modern devices</li>
+      </ul></div>
+      <div><h3>Costs</h3><ul>
+        <li>No timber, so it loses the warmth that drew you to the Tivoli</li>
+        <li>Deepest footprint (129mm)</li>
+        <li>A curved 3mm shell is the hardest of the three to print well: it needs splitting into halves, likely with supports</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <p class="note">Models: <code>cad/alternatives/sunrise.py</code> and <code>pebble.py</code>, which share the component models in <code>common.py</code>. Run either inside FreeCAD to rebuild it. Renders are generated from those models, not drawn.</p>
+</div>
+</body>
+</html>

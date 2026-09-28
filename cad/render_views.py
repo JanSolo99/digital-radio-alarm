@@ -14,12 +14,12 @@ import sys
 import numpy as np
 
 
-def export_mesh(path, tolerance=0.2):
+def export_mesh(path, tolerance=0.2, doc_name="DigitalRadioAlarm"):
     """Run inside FreeCAD: dump triangles, colours and labels to an .npz."""
     import FreeCAD as App
     import Part
 
-    doc = App.getDocument("DigitalRadioAlarm")
+    doc = App.getDocument(doc_name)
     pts_all, tris, cols, names = [], [], [], []
     for o in doc.Objects:
         if o.TypeId == "App::DocumentObjectGroup" or not hasattr(o, "Shape") or o.Shape.isNull():

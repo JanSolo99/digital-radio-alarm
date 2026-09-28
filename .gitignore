@@ -8,3 +8,4 @@ venv/
 cad/mesh.npz
 *.FCBak
 __pycache__/
+cad/alternatives/*_mesh.npz
